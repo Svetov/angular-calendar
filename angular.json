@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "angular-calendar"
+  "defaultProject": "angular-calendar",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
