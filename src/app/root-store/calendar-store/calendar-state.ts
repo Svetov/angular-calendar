@@ -7,7 +7,7 @@ export interface State {
 }
 
 export const initState: State = {
-	date: moment().format('DD.MM.YYYY'),
+	date: moment().add(1, 'd').format('DD.MM.YYYY'),
 	month: moment().format('MM'),
 	year: moment().format('YYYY')
 }

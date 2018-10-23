@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, AfterContentChecked } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { RootState, RootSelectors, CalendarActions } from '../../root-store';
+import { RootState, RootSelectors, CalendarActions } from '../../../root-store';
 import { CalendarServiceService } from '../calendar/calendar-service.service';
 
 @Component({

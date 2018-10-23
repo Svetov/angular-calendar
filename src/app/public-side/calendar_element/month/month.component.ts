@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CalendarActions, RootState } from '../../root-store';
+import { CalendarActions, RootState } from '../../../root-store';
 
 @Component({
   selector: 'app-month',

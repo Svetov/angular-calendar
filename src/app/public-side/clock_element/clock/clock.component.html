@@ -1,0 +1,9 @@
+<app-date-infto></app-date-infto>
+
+<table>
+	<tr *ngFor='let clock of clocks_view'>
+		<app-clock-row [clock]='clock'></app-clock-row>
+	</tr>
+</table>
+
+<app-button-nav [herf_back]='herf_back' [herf_forward]='herf_forward'></app-button-nav>
