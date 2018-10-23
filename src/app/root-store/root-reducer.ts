@@ -1,5 +1,5 @@
-import { dayReducer } from './day-store';
+import { calendarReducer } from './calendar-store';
 
 export const RootReducer = { 
-	calendar: dayReducer
+	calendar: calendarReducer
 }

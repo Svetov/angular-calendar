@@ -1,16 +1,22 @@
-<table>
-	<tr>
-		<th>Пн</th>
-		<th>Вт</th>
-		<th>Ср</th>
-		<th>Чт</th>
-		<th>Пт</th>
-		<th>Сб</th>
-		<th>Вс</th>
-	</tr>
-	<tr *ngFor='let week of correct_month_dates'>
-		<th *ngFor='let date of week'>
-			<app-day [date]='date'></app-day>
-		</th>
-	</tr>
-</table>
+<div class='calendar_element'>
+	<app-year [years]='correct_years'></app-year>
+	<div class='calendar'>
+		<table>
+			<tr *ngFor='let month of correct_months'>
+				<app-month [month_view]='month'></app-month>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th *ngFor='let day of correct_days'>
+					{{day}}
+				</th>
+			</tr>
+			<tr *ngFor='let week of correct_month_dates'>
+				<th *ngFor='let date of week'>
+					<app-day [date_view]='date'></app-day>
+				</th>
+			</tr>
+		</table>
+	</div>
+</div>

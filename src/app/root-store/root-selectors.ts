@@ -1,13 +1,26 @@
 import { createSelector, createFeatureSelector, MemoizedSelector } from '@ngrx/store';
-import { DaySelectors, DayState } from './day-store';
+import { CalendarSelectors, CalendarState } from './calendar-store';
 import { State } from './root-state';
 
 
-//export const selectDayState = (state: State) => state.DayState;
-export const selectDayState = createFeatureSelector<State, DayState.State>('calendar');
-//export const selectDayState = createFeatureSelector<State>('DayState');
+export const selectCalendar= createFeatureSelector<State, CalendarState.State>('calendar');
 
 export const selectDay = createSelector(
-	selectDayState,
-	DaySelectors.selectDay
+	selectCalendar,
+	CalendarSelectors.selectDay
+);
+
+export const selectMonth = createSelector(
+	selectCalendar,
+	CalendarSelectors.selectMonth
+);
+
+export const selectYear = createSelector(
+	selectCalendar,
+	CalendarSelectors.selectYear
+);
+
+export const selectMonthYear = createSelector(
+	selectCalendar,
+	CalendarSelectors.selectMonthYear
 );

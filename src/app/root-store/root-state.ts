@@ -1,5 +1,5 @@
-import { DayState } from './day-store';
+import { CalendarState } from './calendar-store';
 
 export interface State {
-	calendar: DayState.State;
+	calendar: CalendarState.State;
 }

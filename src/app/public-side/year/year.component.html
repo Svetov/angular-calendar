@@ -1,0 +1,5 @@
+<select [value]='year_listner | async' (change)='selectYear($event.target.value)'>
+	<option *ngFor='let year of years'>
+		{{year}}
+	</option>
+</select>
