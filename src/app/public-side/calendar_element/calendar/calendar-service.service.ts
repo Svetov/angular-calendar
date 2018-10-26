@@ -14,15 +14,15 @@ export class CalendarServiceService {
 
 	getCurrentMonthDates(): Array<[string, number, boolean]> {
 		let day_count = moment().daysInMonth();
-		let result: Array<[string, number, boolean]> = [];
+		let result: Array<moment.Moment> = [];
 
 		for(let i = 1; i <= day_count; i++) {
 			result.push(moment().date(i));
 		}
 
-		result = result.map((x): [string, number, boolean] => [x.format('DD.MM.YYYY'), x.day(), false]);
+		let res: Array<[string, number, boolean]> = result.map((x: moment.Moment): [string, number, boolean] => [x.format('DD.MM.YYYY'), x.day(), false]);
 
-		return result;
+		return res;
 	}
 
 	correctDates(month_dates: Array<[string, number, boolean]>): Array<[string, boolean]> {
@@ -82,13 +82,13 @@ export class CalendarServiceService {
   getSelectedMonthDates(month: string, year: string): Array<[string, number, boolean]> {
   		let date = {value: month + '.' + year, format: 'MM.YYYY'};
   		let day_count = moment(date.value, date.format).daysInMonth();
-		let result: Array<[string, number, boolean]> = [];
+		let result: Array<moment.Moment> = [];
 
 		for(let i = 1; i <= day_count; i++) { result.push(moment(date.value, date.format).date(i)); }
 
-		result = result.map((x): [string, number, boolean] => [x.format('DD.MM.YYYY'), x.day(), false]);
+		let res: Array<[string, number, boolean]> = result.map((x: moment.Moment): [string, number, boolean] => [x.format('DD.MM.YYYY'), x.day(), false]);
 
-		return result;
+		return res;
   }
 
   getCorrectSelectedMonthDates(month: string, year: string): Array<Array<[string, boolean]>> {

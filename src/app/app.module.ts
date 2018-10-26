@@ -8,6 +8,11 @@ import { PublicSideModule } from './public-side/public-side.module';
 import { AppComponent } from './app.component';
 import { PrivateSideModule } from './private-side/private-side.module';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+import { environment } from './../environments/environment'
+
 @NgModule({
   declarations: [
     AppComponent
@@ -17,7 +22,9 @@ import { PrivateSideModule } from './private-side/private-side.module';
     RootStoreModule,
     PublicSideModule,
     AppRoutingModule,
-    PrivateSideModule
+    PrivateSideModule,
+    AngularFireModule.initializeApp(environment.firebase),  
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

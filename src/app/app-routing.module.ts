@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PrivateSideComponent } from './private-side/private-side.component';
 import { PublicSideComponent } from './public-side/public-side.component';
-import { CalendarComponent } from './public-side/calendar/calendar.component';
+import { CalendarComponent } from './public-side/calendar_element/calendar/calendar.component';
 
 const appRoutes: Routes = [
 	{path: 'login', component: PrivateSideComponent},

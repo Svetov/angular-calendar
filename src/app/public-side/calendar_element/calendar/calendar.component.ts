@@ -31,8 +31,8 @@ export class CalendarComponent implements OnInit, OnChanges, DoCheck {
   	this.correct_months = this.calendarService.getMonths();
   	this.correct_days = this.calendarService.getDays();
   	this.correct_years = this.calendarService.getYers();
-
-  	this.month_year_listner.subscribe(({month, year}: object) => this.updateMonth(month, year));
+    
+  	this.month_year_listner.subscribe(({month, year}: { month:string, year:string }) => this.updateMonth(month, year));
   }
 
   updateMonth(month: string, year: string): void {

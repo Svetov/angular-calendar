@@ -10,7 +10,7 @@ import { PublicPaths } from '../../public-side.path';
 export class ClockComponent implements OnInit {
   herf_back: string;
   herf_forward: string;
-  clocks_view: Array<string>:
+  clocks_view: Array<string>;
 
   constructor(private clockService: ClockService) {
   	this.herf_back = PublicPaths.calendarPath.path;
@@ -18,7 +18,7 @@ export class ClockComponent implements OnInit {
   }
 
   ngOnInit() {
-  	this.clocks_view = this.clockService.getfClocks();
+  	this.clocks_view = this.clockService.clocks;
   }
 
 }
