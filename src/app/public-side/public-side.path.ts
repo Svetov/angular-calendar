@@ -23,10 +23,16 @@ const nullPath = {
 	path: ''
 };
 
+const successPath = {
+	name: 'success',
+	path: '/select/success'
+}
+
 export const PublicPaths = {
 	calendarPath,
 	clockPath,
 	requestPath,
 	selectPath,
-	nullPath
+	nullPath,
+	successPath
 };

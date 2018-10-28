@@ -43,3 +43,7 @@ export const selectRequestStatus = createSelector(
 	RequestSelectors.selectRequestStatus
 )
 
+export const selectRequestAll = createSelector(
+	selectRequest,
+	RequestSelectors.selectRequestAll
+)

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core'
 import { Effect, Actions, ofType } from '@ngrx/effects'
 import { Action } from '@ngrx/store'
 import { Observable, from } from 'rxjs'
-import { map, mapTo, mergeMap, switchMap, catchError } from 'rxjs/operators'
+import { map, mapTo, mergeMap, switchMap, catchError, tap } from 'rxjs/operators'
 
-import { RequestActionTypes, changeStatus } from './request-action'
+import { RequestActionTypes, RequestActions, changeStatus } from './request-action'
 import { State } from './request-state'
 
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore'
 
 
 @Injectable()
@@ -18,12 +18,10 @@ export class RequestEffect {
 		this.request_collection = db.collection<State>('requests')
 	}
 
-	@Effect() requestAdd = this.actions$.pipe(
+	@Effect({ dispatch: false }) requestAdd = this.actions$.pipe(
 		ofType(RequestActionTypes.PUSH_REQUEST),
-		switchMap(action => from(this.request_collection.add(action.payload)).pipe(
-				mapTo( new changeStatus({ request_status: 'on_server' }) ),
-				catchError(val => new changeStatus({ request_status: 'server_error' }) )
-			)
-		)
+		map((action: RequestActions) => action.payload),
+		map((payload: State): Observable<DocumentReference> => from(this.request_collection.add(payload)))
+		//mapTo( new changeStatus({ request_status: 'on_server' }) )
 	)
 }

@@ -22,6 +22,10 @@ import { RequestComponent } from './request_element/request/request.component';
 import { RequestFormComponent } from './request_element/request-form/request-form.component';
 import { RequestComfirmComponent } from './request_element/request-comfirm/request-comfirm.component'
 
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { SuccessComponent } from './success/success.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -40,7 +44,8 @@ import { RequestComfirmComponent } from './request_element/request-comfirm/reque
     ClockRowComponent, 
     RequestComponent, 
     RequestFormComponent,
-    RequestComfirmComponent
+    RequestComfirmComponent,
+    SuccessComponent
   ],
   exports: [
   ],

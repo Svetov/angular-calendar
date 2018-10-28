@@ -10,6 +10,7 @@ import { PrivateSideModule } from './private-side/private-side.module';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from './../environments/environment'
 
@@ -24,7 +25,8 @@ import { environment } from './../environments/environment'
     AppRoutingModule,
     PrivateSideModule,
     AngularFireModule.initializeApp(environment.firebase),  
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

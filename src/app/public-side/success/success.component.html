@@ -1,0 +1,25 @@
+<div>
+	<h2>Результат</h2>
+	<h3>Мы начали обрабатывать вашу заявку, в ближайшее время с вами свяжется менеджер для подтверждения заказа</h3>
+
+	<h4>Клиент</h4>
+	<h5>{{first_name | async}} {{second_name | async}}</h5>
+
+	<h4>Дата</h4>
+	<h5>{{date | async}}</h5>
+
+	<h4>Время</h4>
+	<h5>{{clocks | async}}</h5>
+
+	<h4>Телефон</h4>
+	<h5>{{telephone | async}}</h5>
+
+	<h4>Услуга</h4>
+	<h5>{{service_type | async}}</h5>
+
+	<h4>Количество человек</h4>
+	<h5>{{children_amount | async}} детей</h5>
+	<h5>{{adult_amount | async}} взрослых</h5>
+</div>
+
+<button>Сохранить заявку</button>

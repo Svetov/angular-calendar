@@ -1,3 +1,11 @@
 form div {
 	padding: 10 px;
 }
+
+.ng-invalid #telephone-label {
+	color: red;
+}
+
+.ng-invalid #telephone-input {
+	color: red;
+}

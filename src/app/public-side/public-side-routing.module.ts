@@ -7,6 +7,7 @@ import { PublicSideComponent } from './public-side.component';
 import { CalendarComponent } from './calendar_element/calendar/calendar.component';
 import { ClockComponent } from './clock_element/clock/clock.component'; 
 import { RequestComponent } from './request_element/request/request.component';
+import { SuccessComponent } from './success/success.component'
 
 
 
@@ -16,7 +17,8 @@ const publicRoutes = [
 	{ path: PublicPaths.selectPath.name, 	component: PublicSideComponent, children: [
 		{ path: 	PublicPaths.calendarPath.name, 	component: CalendarComponent },
 		{ path: 	PublicPaths.clockPath.name, 	component: ClockComponent },
-		{ path: 	PublicPaths.requestPath.name,	component: RequestComponent }
+		{ path: 	PublicPaths.requestPath.name,	component: RequestComponent },
+		{ path:		PublicPaths.successPath.name, 	component: SuccessComponent }
 	]}
 ];
 

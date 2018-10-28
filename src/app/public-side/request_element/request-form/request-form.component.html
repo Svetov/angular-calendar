@@ -1,4 +1,4 @@
-<form [formGroup]='request_form' (ngSubmit)='onSubmit()'>
+<form [formGroup]='request_form' (ngSubmit)='onGetCode()'>
 	<div>
 		<label>Имя*</label>
 		<input type='text' formControlName='first_name'>
@@ -8,8 +8,8 @@
 		<input type='text' formControlName='second_name'>
 	</div>
 	<div>
-		<label>Телефон*</label>
-		<input type='text' formControlName='telephone'>
+		<label id='telephone-label'>Телефон*</label>
+		<input id='telephone-input' type='text' formControlName='telephone' placeholder="+7 989-800-712">
 	</div>
 	<div>
 		<label>Услуга*</label>
@@ -23,12 +23,17 @@
 		<input type='text' formControlName='children_amount'>
 	</div>
 	<div>
-		<label>Количество взрослых*</label>
+		<label>Количество взрослых*</label>	
 		<input type='text' formControlName='adult_amount'>
 	</div>
 	<div>
 		<label>Расположение столов</label>
 		<input type='text' formControlName='table_type'>
 	</div>
-	<button type='submit'>Отправить</button>
+	<button id='button-send-sms'> Отправить </button>
 </form>
+<div *ngIf='comfirm_status'>
+	<h2>Введие код подтверждения</h2>
+	<input type='text' [formControl]='code_form'>
+	<button (click)='onSendCode()' routerLink={{herf_forward}}> Далее </button>
+</div>

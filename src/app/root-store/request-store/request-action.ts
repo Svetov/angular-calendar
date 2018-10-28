@@ -11,7 +11,7 @@ export class pushRequest implements Action {
 	constructor(public payload: { 
 		first_name: string,
 		second_name: string,
-		telephone: number,
+		telephone: string,
 		service_type: string,
 		children_amount: number,
 		adult_amount: number,
@@ -27,4 +27,4 @@ export class changeStatus implements Action {
 	}) {}
 }
 
-export type RequestActions = pushRequest | changeStattus;
+export type RequestActions = pushRequest | changeStatus;

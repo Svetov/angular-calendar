@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs'
 //import { select } from 'rxjs/operator'
 
@@ -13,10 +13,7 @@ import { RootState, RootSelectors } from '../../../root-store'
 export class RequestComfirmComponent implements OnInit {
 	private request_status: Observable<string>
 
-	constructor(private store: Store<RootState.State>) {
-		this.request_status = this.store.pipe(select(RootSelectors.selectRequestStatus))
-	}
+	constructor(private store: Store<RootState.State>) {}
 
 	ngOnInit() {}
-
 }
