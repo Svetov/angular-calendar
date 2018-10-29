@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { Observable } from 'rxjs'
+import { catchError, tap } from 'rxjs/operators'
 
 import * as firebase from 'firebase/app'
 
@@ -9,6 +10,9 @@ import { Store } from '@ngrx/store'
 
 import { PublicPaths } from '../../public-side.path'
 import { RootState, RequestActions } from '../../../root-store'
+import * as request from 'request'
+
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 
 
@@ -42,7 +46,9 @@ export class RequestFormComponent implements OnInit, AfterViewInit {
 	private herf_forward: string
 
 
-	constructor(private store: Store<RootState.State>, private ngAuth: AngularFireAuth) {
+	constructor(private store: Store<RootState.State>, 
+				private ngAuth: AngularFireAuth, 
+				private http: HttpClient) {
 		this.comfirm_status = false
 		this.herf_forward = PublicPaths.successPath.path
 	}
@@ -75,6 +81,31 @@ export class RequestFormComponent implements OnInit, AfterViewInit {
 		form_value['request_status'] = 'status_1'
 
 		this.store.dispatch( new RequestActions.pushRequest(form_value) )
+
+		const first_name = form_value.first_name
+		const text_string = `Клиент ${first_name} приехал на разборки`
+
+		const l = JSON.stringify({"text": text_string})
+		const r = `payload=${l}`
+		const postHeader = {
+			headers: new HttpHeaders({
+				'Content-Type':  'application/x-www-form-urlencoded'
+			})
+		}
+		this.http.post(
+			"https://hooks.slack.com/services/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",
+			r,
+			postHeader
+		).subscribe(
+			x => console.log(1, x),
+			x => console.log(2, x)
+		)
+		//request.post(
+		//	"https://hooks.slack.com/services/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",
+		//	{ 'json': { 'text': '123' } }
+		//)
+		
+
 		/*
 		this.confirmationResult.confirm(this.code_form.value)
 			.then(result => {
