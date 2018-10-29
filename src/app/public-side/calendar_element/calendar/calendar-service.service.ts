@@ -1,16 +1,29 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { RootState, RootSelectors, RequestState } from '../../../root-store';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
+import { requestStatus } from '../../../app.parametrs'
+import { map, tap, filter, reduce } from 'rxjs/operators'
+import { Observable } from 'rxjs'
 
 @Injectable()
 export class CalendarServiceService {
 	private months: Array<string> = [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-									  'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ];
+		'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ];
     private years: Array<string> = ['2018', '2019', '2020'];
     private days: Array<string> = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-
 	private week_row_view: number = 6;
+	private requestCollection: AngularFirestoreCollection<RootState.FirestoreState>
+	private picked_dates: Observable<Array<string>>
 
-	constructor() { }
+	constructor(private db: AngularFirestore) {}
+
+	isPickedDate(date: string) {
+		return this.picked_dates.pipe(
+			map(date_list => date_list.filter(datei => datei === date)),
+			map(date_list => date_list.length > 0)
+		)
+	}
 
 	getCurrentMonthDates(): Array<[string, number, boolean]> {
 		let day_count = moment().daysInMonth();
@@ -112,6 +125,14 @@ export class CalendarServiceService {
 
   getYers(): Array<string> {
   	return this.years;
+  }
+
+  get get_requestCollection() { 
+  	return this.requestCollection 
+  }
+
+  get get_PickedDates() {
+  	return this.picked_dates
   }
 }
 

@@ -1,6 +1,7 @@
 import { createSelector, createFeatureSelector, MemoizedSelector } from '@ngrx/store';
 import { CalendarSelectors, CalendarState } from './calendar-store';
 import { ClockSelectors, ClockState } from './clock-store';
+import { FirestoreSelectors, FirestoreState } from './firestore'
 import { RequestSelectors, RequestState } from './request-store'
 import { State } from './root-state';
 
@@ -46,4 +47,12 @@ export const selectRequestStatus = createSelector(
 export const selectRequestAll = createSelector(
 	selectRequest,
 	RequestSelectors.selectRequestAll
+)
+
+
+export const selectFirestore = createFeatureSelector<State, FirestoreState.State>('firestore');
+
+export const selectFirestoreDocuments = createSelector(
+	selectFirestore,
+	FirestoreSelectors.selectDocuments
 )

@@ -32,7 +32,8 @@
 	</div>
 	<button id='button-send-sms'> Отправить </button>
 </form>
-<div *ngIf='comfirm_status'>
+
+<div *ngIf='code_form_flag'>
 	<h2>Введие код подтверждения</h2>
 	<input type='text' [formControl]='code_form'>
 	<button (click)='onSendCode()' routerLink={{herf_forward}}> Далее </button>

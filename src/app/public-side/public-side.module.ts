@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ClockService } from './clock_element/clock/clock.service';
 import { CalendarServiceService } from './calendar_element/calendar/calendar-service.service';
+import { RequestService } from './request_element/request-form/request.service';
 
 import { PublicRoutingModule } from './public-side-routing.module';
 import { PublicSideComponent } from './public-side.component';
@@ -22,9 +23,7 @@ import { RequestComponent } from './request_element/request/request.component';
 import { RequestFormComponent } from './request_element/request-form/request-form.component';
 import { RequestComfirmComponent } from './request_element/request-comfirm/request-comfirm.component'
 
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { SuccessComponent } from './success/success.component';
+import { SuccessComponent } from './success/success.component'
 
 @NgModule({
   imports: [
@@ -51,7 +50,8 @@ import { SuccessComponent } from './success/success.component';
   ],
   providers: [
     CalendarServiceService,
-    ClockService
+    ClockService,
+    RequestService
   ]
 })
 export class PublicSideModule { }

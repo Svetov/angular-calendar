@@ -6,4 +6,5 @@ import * as RootEffects from './root-effects'
 export * from './calendar-store'
 export * from './clock-store'
 export * from './request-store'
+export * from './firestore'
 export { RootStoreModule, RootState, RootSelectors, RootEffects }

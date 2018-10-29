@@ -14,7 +14,7 @@ import * as request from 'request'
 
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 
-
+import { RequestService } from './request.service'
 
 
 @Component({
@@ -23,17 +23,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 	styleUrls: ['./request-form.component.css']
 })
 export class RequestFormComponent implements OnInit, AfterViewInit {
-	private reg_telephone = /\+\d\s\d{3}-\d{3}-\d{4}/i
-
-	private comfirm_status: boolean
-	private confirmationResult: any
-	private recaptchaVerifier: any
 
 	private request_form = new FormGroup({
 		first_name: 		new FormControl(''),
 		second_name: 		new FormControl(''),
 		telephone: 			new FormControl('', [
-			Validators.pattern(/\+\d\s\d{3}-\d{3}-\d{4}/i)
+			Validators.pattern(this.requestService.get_reg_telephone)
 		]),
 		service_type: 		new FormControl(''),
 		children_amount: 	new FormControl(''),
@@ -45,43 +40,31 @@ export class RequestFormComponent implements OnInit, AfterViewInit {
 
 	private herf_forward: string
 
+	private recaptchaVerifier: any
 
-	constructor(private store: Store<RootState.State>, 
-				private ngAuth: AngularFireAuth, 
-				private http: HttpClient) {
-		this.comfirm_status = false
+	private code_form_flag: boolean
+
+
+	constructor(private requestService: RequestService) {
+		this.code_form_flag = false
 		this.herf_forward = PublicPaths.successPath.path
 	}
 
-	ngOnInit() {}
-
-	ngAfterViewInit() {
-		this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('button-send-sms', {'size': 'invisible'})
+	ngOnInit() {
+		this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('button-send-sms', { 'size': 'invisible' })
 	}
 
-	onGetCode() {
-		const form_value = {...this.request_form.value};
+	ngAfterViewInit() { }
 
-		/*
-		if (this.reg_telephone.test(form_value.telephone)) {
-			this.ngAuth.auth.signInWithPhoneNumber('+7 989-702-6426', this.recaptchaVerifier)
-				.then(confirmationResult => {
-					this.comfirm_status = true
-					this.confirmationResult = confirmationResult
-				})
-				.catch(x => console.log('signInWithPhoneNumber', x))
-		}*/
-		this.comfirm_status = true
+	onGetCode() {
+		this.requestService.get_code({...this.request_form.value}, this.recaptchaVerifier)
+		this.code_form_flag = true
 	}
 
 	onSendCode() {
-		const form_value = {...this.request_form.value};
-		form_value.adult_amount = parseInt(form_value.adult_amount) || 0
-		form_value.children_amount = parseInt(form_value.children_amount) || 0
-		form_value['request_status'] = 'status_1'
-
-		this.store.dispatch( new RequestActions.pushRequest(form_value) )
-
+		this.requestService.send_code({...this.request_form.value}, this.code_form.value)
+		this.code_form_flag = false
+		/*
 		const first_name = form_value.first_name
 		const text_string = `Клиент ${first_name} приехал на разборки`
 
@@ -100,18 +83,6 @@ export class RequestFormComponent implements OnInit, AfterViewInit {
 			x => console.log(1, x),
 			x => console.log(2, x)
 		)
-		//request.post(
-		//	"https://hooks.slack.com/services/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",
-		//	{ 'json': { 'text': '123' } }
-		//)
-		
-
-		/*
-		this.confirmationResult.confirm(this.code_form.value)
-			.then(result => {
-				this.store.dispatch( new RequestActions.pushRequest(form_value) )
-			})
-			.catch(x => console.log('confirmationResult', x))
 		*/
 	}
 }

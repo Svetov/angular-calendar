@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store'
 
 export enum RequestActionTypes {
 	PUSH_REQUEST = 'PUSH_REQUEST',
-	CHANGE_STATUS = 'CHANGE_STATUS'
+	CHANGE_STATUS = 'CHANGE_STATUS',
 }
 
 export class pushRequest implements Action {
@@ -27,4 +27,5 @@ export class changeStatus implements Action {
 	}) {}
 }
 
-export type RequestActions = pushRequest | changeStatus;
+
+export type RequestActions = pushRequest | changeStatus
