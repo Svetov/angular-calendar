@@ -4,5 +4,9 @@
 }
 
 .selected-row {
-	background-color: red;
+	background-color: #f44336;
+}
+
+.picked-rows {
+	background-color: #7742f4;	
 }

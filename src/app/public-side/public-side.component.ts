@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store'
+import { RootState, FirestoreAction } from '../root-store'
 
 @Component({
   selector: 'app-public-side',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PublicSideComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store$: Store<RootState.State>) { }
 
   ngOnInit() {
+  	this.store$.dispatch( new FirestoreAction.getFirestoreRequestStart({ documents: [] }) )
   }
 
 }

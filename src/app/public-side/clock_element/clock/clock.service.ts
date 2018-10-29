@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Store, select } from '@ngrx/store'
+import { RootState, RootSelectors } from '../../../root-store'
+import { mapTo, map, filter, tap, switchMap, first } from 'rxjs/operators'
+import { Observable } from 'rxjs'
 
 @Injectable()
 export class ClockService {
+  private picked_date: string = ''
+  private picked_clocks: Observable<any>
   private clocks_: Array<string> = [ '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00','17:00', '18:00',
 			 	 					                   '19:00', '20:00', '21:00', '22:00' ];
   get clocks(): Array<string> { return this.clocks_ }
@@ -16,7 +22,16 @@ export class ClockService {
   get mem_clock(): string { return this.mem_clock_ }
   set mem_clock(_mem_clock: string) { this.mem_clock_ = _mem_clock }
 
-  constructor() { }
+  constructor(private store$: Store<RootState.State>) {
+    this.store$.pipe(select(RootSelectors.selectDay)).subscribe(x => this.picked_date = x)
+
+    this.picked_clocks = this.store$.pipe(
+      select(RootSelectors.selectFirestoreDocuments),
+      map(y => y.filter((z: RootState.FirestoreState) => z.date === this.picked_date)),
+      map(y => y.map((z: RootState.FirestoreState) => z.clocks)),
+      map(y => y.map((z: Array<string>) => z[0]))
+    )//.subscribe(x => this.picked_date = x)
+  }
 
   selectClock(_clock: string): Array<string> {
   	let result: Array<string> = [];
@@ -43,5 +58,9 @@ export class ClockService {
 
   checkSelection(_clock: string, _clocks: Array<string>): boolean {
     return _clocks.indexOf(_clock) != -1 ? true : false;
+  }
+
+  get getCurrentClocksByDate() {
+    return this.picked_clocks
   }
 }

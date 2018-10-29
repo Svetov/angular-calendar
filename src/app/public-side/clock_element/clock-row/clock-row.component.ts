@@ -11,18 +11,29 @@ import { Observable } from 'rxjs';
 })
 export class ClockRowComponent implements OnInit {
   @Input() clock: string;
-  selected: boolean;
+  private selected: boolean = false;
+  private picked: boolean
+  private picked_listner: Observable<Array<string>>
 
   constructor(private clockService: ClockService, private store: Store<RootState.State>) {
   	this.store.pipe(select(RootSelectors.selectClocks)).subscribe((x: Array<string>) => this.isSelected(x));
-  	this.selected = false;
+    this.picked_listner = this.clockService.getCurrentClocksByDate
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.picked_listner.subscribe(x => this.updatePicked(x))
+  }
+
+  updatePicked(clocks: Array<string>) {
+    console.log(clocks, this.clock)
+    if (clocks.indexOf(this.clock) > -1) { this.picked = true }
+    else { this.picked = false }
+    console.log(this.picked)
+  }
 
   selectClock() { 
-	let selected_clocks: Array<string> = this.clockService.selectClock(this.clock);
-	this.store.dispatch( new ClockActions.selectClockAction({clocks: selected_clocks}) );
+	  let selected_clocks: Array<string> = this.clockService.selectClock(this.clock);
+  	this.store.dispatch( new ClockActions.selectClockAction({clocks: selected_clocks}) );
   }
 
   isSelected(_clocks: Array<string>) {

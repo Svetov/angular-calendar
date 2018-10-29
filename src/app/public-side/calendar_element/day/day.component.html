@@ -1,5 +1,5 @@
 <button (click)='selectDate()' 
-		[ngClass]="{'picked_button' : pick_selected, 'selected_button': date_selected}"
+		[ngClass]="date_selected ? 'selected_button' : (pick_selected ? 'picked_button' : '')"
 		[disabled]="date_timeout"
 >
 	{{date_view[0].split('.')[0]}}

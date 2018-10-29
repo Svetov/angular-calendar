@@ -25,8 +25,8 @@ export class DayComponent implements OnInit, OnChanges, DoCheck, AfterContentChe
 
   ngOnInit() {
     this.date_timeout = this.calendarService.timeOut(this.date_view[0]);
-    this.date_listner.subscribe(x => { x === this.date_view[0] ? this.date_selected = true : this.date_selected = false; });
     this.pick_listner.subscribe( x => this.pick_selected = x.filter((y: RootState.FirestoreState) => y.date === this.date_view[0]).length > 0 )
+    this.date_listner.subscribe(x => { x === this.date_view[0] ? this.date_selected = true : this.date_selected = false; });
   }
 
   ngOnChanges(changes: SimpleChanges) {}

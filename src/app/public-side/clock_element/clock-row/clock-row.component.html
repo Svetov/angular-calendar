@@ -1,4 +1,4 @@
 <div class='clock-row'>
 	{{clock}}
-	<button (click)='selectClock()' [ngClass]="selected ? 'selected-row' : ''">Выбрать</button>
+	<button (click)='selectClock()' [ngClass]="selected ? 'selected-row' : (picked ? 'picked-rows' : '')">Выбрать</button>
 </div>
