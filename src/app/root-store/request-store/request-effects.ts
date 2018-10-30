@@ -3,7 +3,7 @@ import { Effect, Actions, ofType } from '@ngrx/effects'
 import { Action, select } from '@ngrx/store'
 import { Observable, from } from 'rxjs'
 import { map, mapTo, mergeMap, switchMap, catchError, tap, withLatestFrom } from 'rxjs/operators'
-import { RequestActionTypes, RequestActions, changeStatus, getFirestoreRequestSuccess } from './request-action'
+import { RequestActionTypes, RequestActions, changeStatus } from './request-action'
 import { State } from './request-state'
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore'
 import { Store } from '@ngrx/store'
@@ -11,6 +11,7 @@ import { StateEffects } from '../root-state'
 import { selectClocks, selectDay } from '../root-selectors'
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import * as AppParametrs from '../../app.parametrs'
+import * as firebase from 'firebase'
 
 @Injectable()
 export class RequestEffect {
@@ -40,6 +41,55 @@ export class RequestEffect {
 		map((request) => this.create_post_request_slack(request))
 	)
 
+	@Effect({ dispatch: false }) push_request_to_browser = this.actions$.pipe(
+		ofType(RequestActionTypes.PUSH_REQUEST),
+		map((action: RequestActions) => action.payload)
+		//map((payload: State): void => this.push_full_state_to_browser(payload))
+	)
+
+	push_full_state_to_browser(payload) {
+		const messaging = firebase.messaging()
+		const postHeader = {
+			headers: new HttpHeaders({ 
+				'Content-Type': 'application/json',
+				'Authorization': ''
+			})
+		}
+
+		messaging.requestPermission()
+			.then(() => {
+				messaging.getToken()
+					.then(res => {
+						this.http.post(
+							AppParametrs.FCMurl,
+							this.create_browser_message(res),
+							postHeader
+						).subscribe( x => console.log('push_full_state_to_browser', x) )
+					})
+					.catch((err) => console.log('getToken', err))
+			})
+			.catch((err) => console.log('requestPermission', err))
+	}
+
+	create_browser_message(token){
+		return {
+			message: {
+				token: token,
+				notification: {
+					body: 'FCM body',
+					title: 'FCM title'
+				}
+			}
+		}
+	}
+
+	/*
+	creaet_post_request_notification(messaging) {
+		messaging.getToken()
+			.then()
+			.catch()
+	}*/
+
 	send_full_state_to_firestore(payload) {
 		return from(this.request_collection.add({ ...payload, date: this.date_value, clocks: this.clocks_mas }))
 	}
@@ -59,9 +109,7 @@ export class RequestEffect {
 			AppParametrs.slackWebhookURL,
 			`payload=${ JSON.stringify({text: this.create_slack_message(request)}) }`,
 			postHeader
-		).subscribe(
-			x => console.log(1, x)
-		)
+		).subscribe( x => console.log('create_post_request_slack', x) )
 	}
 }
 

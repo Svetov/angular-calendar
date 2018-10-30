@@ -12,11 +12,11 @@ import { CalendarServiceService } from '../calendar/calendar-service.service';
 })
 export class DayComponent implements OnInit, OnChanges, DoCheck, AfterContentChecked {
   @Input() date_view: object;
-  private date_selected: boolean;
-  private date_listner: Observable<string>;
-  private date_timeout: boolean;
-  private pick_listner: Observable<Array<object>>
-  private pick_selected: boolean
+  date_selected: boolean;
+  date_listner: Observable<string>;
+  date_timeout: boolean;
+  pick_listner: Observable<Array<object>>
+  pick_selected: boolean
 
   constructor(private calendarService: CalendarServiceService, private store: Store<RootState.State>) {
   	this.date_listner = this.store.pipe(select(RootSelectors.selectDay));

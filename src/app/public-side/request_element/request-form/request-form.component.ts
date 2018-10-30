@@ -23,8 +23,7 @@ import { RequestService } from './request.service'
 	styleUrls: ['./request-form.component.css']
 })
 export class RequestFormComponent implements OnInit, AfterViewInit {
-
-	private request_form = new FormGroup({
+	request_form = new FormGroup({
 		first_name: 		new FormControl(''),
 		second_name: 		new FormControl(''),
 		telephone: 			new FormControl('', [
@@ -35,15 +34,10 @@ export class RequestFormComponent implements OnInit, AfterViewInit {
 		adult_amount: 		new FormControl(''),
 		table_type: 		new FormControl(''),
 	})
-
-	private code_form = new FormControl('')
-
-	private herf_forward: string
-
-	private recaptchaVerifier: any
-
-	private code_form_flag: boolean
-
+	code_form = new FormControl('')
+	herf_forward: string
+	recaptchaVerifier: any
+	code_form_flag: boolean
 
 	constructor(private requestService: RequestService) {
 		this.code_form_flag = false

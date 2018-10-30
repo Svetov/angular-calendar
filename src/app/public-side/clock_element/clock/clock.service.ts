@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store'
 import { RootState, RootSelectors } from '../../../root-store'
-import { mapTo, map, filter, tap, switchMap, first } from 'rxjs/operators'
+import { mapTo, map, filter, tap, switchMap, first, catchError, reduce } from 'rxjs/operators'
 import { Observable } from 'rxjs'
 
 @Injectable()
@@ -24,13 +24,12 @@ export class ClockService {
 
   constructor(private store$: Store<RootState.State>) {
     this.store$.pipe(select(RootSelectors.selectDay)).subscribe(x => this.picked_date = x)
+    this.picked_clocks = this.store$.pipe(select(RootSelectors.selectForClocksRow))
+  }
 
-    this.picked_clocks = this.store$.pipe(
-      select(RootSelectors.selectFirestoreDocuments),
-      map(y => y.filter((z: RootState.FirestoreState) => z.date === this.picked_date)),
-      map(y => y.map((z: RootState.FirestoreState) => z.clocks)),
-      map(y => y.map((z: Array<string>) => z[0]))
-    )//.subscribe(x => this.picked_date = x)
+  test_filter(date_, picked_date_) {
+    console.log(5, date_, 6, picked_date_)
+    return true
   }
 
   selectClock(_clock: string): Array<string> {

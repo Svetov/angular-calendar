@@ -13,13 +13,13 @@ import * as AppPrametrs from '../../../app.parametrs'
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit, OnChanges, DoCheck {
-  private correct_month_dates: Array<Array<[string, boolean]>>;
-  private correct_years: Array<string>;
-  private correct_months: Array<string>;
-  private correct_days: Array<string>;
-  private month_year_listner: Observable<object>;
-  private year_listner: Observable<string>;
-  private herf_forward: string;
+  correct_month_dates: Array<Array<[string, boolean]>>;
+  correct_years: Array<string>;
+  correct_months: Array<string>;
+  correct_days: Array<string>;
+  month_year_listner: Observable<object>;
+  year_listner: Observable<string>;
+  herf_forward: string;
 
   constructor(private calendarService: CalendarServiceService, 
               private store: Store<RootState.State>) 

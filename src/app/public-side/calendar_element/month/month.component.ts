@@ -9,7 +9,7 @@ import { CalendarActions, RootState } from '../../../root-store';
 })
 export class MonthComponent implements OnInit {
   @Input() month_view: string;
-  private months: Array<string> = [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+  months: Array<string> = [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
     							    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ];
 
   constructor(private store: Store<RootState.State>) { }
@@ -17,7 +17,7 @@ export class MonthComponent implements OnInit {
   ngOnInit() {
   }
 
-  selectMonth(selected_month: string) {
+  selectMonth() {
   	this.store.dispatch( new CalendarActions.selectMonthAction({ month: (this.months.lastIndexOf(this.month_view) + 1).toString() }) );
   }
 }

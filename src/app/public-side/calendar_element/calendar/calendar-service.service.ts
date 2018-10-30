@@ -18,13 +18,6 @@ export class CalendarServiceService {
 
 	constructor(private db: AngularFirestore) {}
 
-	isPickedDate(date: string) {
-		return this.picked_dates.pipe(
-			map(date_list => date_list.filter(datei => datei === date)),
-			map(date_list => date_list.length > 0)
-		)
-	}
-
 	getCurrentMonthDates(): Array<[string, number, boolean]> {
 		let day_count = moment().daysInMonth();
 		let result: Array<moment.Moment> = [];

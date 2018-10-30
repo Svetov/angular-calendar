@@ -13,14 +13,14 @@ import { RootState, RootSelectors } from '../../root-store'
 	styleUrls: ['./success.component.css']
 })
 export class SuccessComponent implements OnInit {
-	private first_name: Observable<string>
-	private second_name: Observable<string>
-	private date: Observable<string>
-	private clocks: Observable<Array<string>>
-	private telephone: Observable<string>
-	private service_type: Observable<string>
-	private children_amount: Observable<number>
-	private adult_amount: Observable<number>
+	first_name: Observable<string>
+	second_name: Observable<string>
+	date: Observable<string>
+	clocks: Observable<Array<string>>
+	telephone: Observable<string>
+	service_type: Observable<string>
+	children_amount: Observable<number>
+	adult_amount: Observable<number>
 
 	constructor(private store: Store<RootState.State>) {
 		this.second_name = store.pipe(

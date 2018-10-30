@@ -4,6 +4,7 @@ import { ClockSelectors, ClockState } from './clock-store';
 import { FirestoreSelectors, FirestoreState } from './firestore'
 import { RequestSelectors, RequestState } from './request-store'
 import { State } from './root-state';
+import * as RootState from './root-state';
 
 
 export const selectCalendar= createFeatureSelector<State, CalendarState.State>('calendar');
@@ -56,3 +57,44 @@ export const selectFirestoreDocuments = createSelector(
 	selectFirestore,
 	FirestoreSelectors.selectDocuments
 )
+
+
+export const selectForClocksRow = createSelector(
+	selectDay,
+	selectFirestoreDocuments,
+	(date: string, documents) => {
+		if (date && documents) {
+			return documents.filter((x: RootState.FirestoreState) => x.date === date).map((x: RootState.FirestoreState): Array<string> => x.clocks)
+		}
+		return documents
+	}
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
