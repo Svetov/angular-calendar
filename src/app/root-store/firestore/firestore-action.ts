@@ -5,7 +5,6 @@ export enum FirestoreActionTypes {
 	GET_FIRESTORE_REQUEST_START = 'GET_FIRESTORE_REQUEST_START',
 	GET_FIRESTORE_REQUEST_SUCCESS = 'GET_FIRESTORE_REQUEST_SUCCESS',
 	GET_FIRESTORE_REQUEST_FAIL = 'GET_FIRESTORE_REQUEST_FAIL',
-	CHANGE_TOKEN = 'CHANGE_TOKEN'
 }
 
 
@@ -30,11 +29,4 @@ export class getFirestoreRequestFail implements Action {
 	}) {}
 }
 
-export class changeToken implements Action {
-	readonly type = FirestoreActionTypes.CHANGE_TOKEN
-	constructor(public payload: {
-		token: string
-	}) {}
-}
-
-export type FirestoreActions = getFirestoreRequestStart | getFirestoreRequestSuccess | getFirestoreRequestFail | changeToken
+export type FirestoreActions = getFirestoreRequestStart | getFirestoreRequestSuccess | getFirestoreRequestFail

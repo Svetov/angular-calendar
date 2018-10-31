@@ -16,12 +16,6 @@ export function FirestoreReducer(state: State = initState, action: FirestoreActi
 		case FirestoreActionTypes.GET_FIRESTORE_REQUEST_FAIL:
 			return state
 
-		case FirestoreActionTypes.CHANGE_TOKEN:
-			return {
-				...state,
-				token: action.payload.token
-			}
-
 		default:
 			return state
 	}

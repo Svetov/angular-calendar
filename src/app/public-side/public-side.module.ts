@@ -6,7 +6,7 @@ import { ClockService } from './clock_element/clock/clock.service';
 import { CalendarServiceService } from './calendar_element/calendar/calendar-service.service';
 import { RequestService } from './request_element/request-form/request.service';
 
-import { PublicRoutingModule } from './public-side-routing.module';
+import { PublicRoutingModule } from './public-routing/public-side-routing.module';
 import { PublicSideComponent } from './public-side.component';
 import { ButtonNavComponent } from './button-nav/button-nav.component';
 

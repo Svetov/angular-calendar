@@ -29,21 +29,4 @@ export class FirestoreEffect {
 			map((x) => new getFirestoreRequestSuccess({ documents: x }))
 		))
 	)
-
-	@Effect({ dispatch: false }) send_token_to_firestore = this.actions$.pipe(
-		ofType(FirestoreActionTypes.CHANGE_TOKEN),
-		map((action: FirestoreActions) => action.payload),
-		map((payload: State): void => this.send_token(payload))
-	)
-
-	send_token(payload) {
-		const token_ref = this.firestore.collection('admin').doc('token')
-		token_ref.update({ value: payload.token })
-			.then(() => {
-				console.log('Success update')
-			})
-			.catch(err => {
-				console.log('Error update')
-			})
-	}
 }

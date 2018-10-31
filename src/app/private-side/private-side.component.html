@@ -1,1 +1,11 @@
-<h3>Private side</h3>
+<form [formGroup]='admin_form' (ngSubmit)='onSendLoginPassword()'>
+	<div>
+		<label>Почта*</label>
+		<input type='text' formControlName='email'>
+	</div>
+	<div>
+		<label>Пароль*</label>
+		<input type='text' formControlName='password'>
+	</div>
+	<button> Войти </button>
+</form>

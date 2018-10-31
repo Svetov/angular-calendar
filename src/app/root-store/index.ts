@@ -7,4 +7,5 @@ export * from './calendar-store'
 export * from './clock-store'
 export * from './request-store'
 export * from './firestore'
+export * from './admin-store'
 export { RootStoreModule, RootState, RootSelectors, RootEffects }

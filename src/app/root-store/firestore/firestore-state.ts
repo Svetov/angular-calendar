@@ -1,9 +1,7 @@
 export interface State {
-	documents: Array<object>,
-	token: string
+	documents: Array<object>
 }
 
 export const initState = {
-	documents: [],
-	token: ""
+	documents: []
 }

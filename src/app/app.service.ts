@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { FCMtoken } from './app.parametrs'
-import { RootState, FirestoreAction } from './root-store'
+import { RootState, AdminAction } from './root-store'
 import { Store } from '@ngrx/store'
 
 @Injectable()
@@ -51,7 +51,7 @@ export class AppService {
 	}
 
 	saveToken(token) {
-		this.store$.dispatch( new FirestoreAction.changeToken({ token: token }) )
+		this.store$.dispatch( new AdminAction.changeToken({ token: token }) )
 		/*
 		const token_ref = this.firestore.collection('admin').doc('token')
 		token_ref.update({ value: token })
