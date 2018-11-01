@@ -7,9 +7,13 @@ export interface State {
 	status: string
 }
 
-export const initState = {
+export const initValue = {
 	email: '',
 	password: '',
 	token: '',
 	status: loginStatus.none
 }
+
+export const name = 'admin'
+
+export const initState: Statte = localStorage.getItem(name) != undefined ? JSON.parse(localStorage.getItem(name)) : initValue

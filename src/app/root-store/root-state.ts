@@ -6,18 +6,18 @@ import { RouterReducerState } from '@ngrx/router-store'
 import { AdminState } from './admin-store'
 
 export interface State {
-	calendar: CalendarState.State;
-	clock: ClockState.State;
-	request: RequestState.State;
-	firestore: FirestoreState.State;
 	router: RouterReducerState;
-	admin: AdminState.State;
+	CalendarState.name: CalendarState.State;
+	ClockState.name: ClockState.State;
+	RequestState.name: RequestState.State;
+	FirestoreState.name: FirestoreState.State;
+	AdminState.name: AdminState.State;
 }
 
 export interface StateEffects {
-	calendar: CalendarState.State;
-	clock: ClockState.State;
-	request: RequestState.State;
+	CalendarState.name: CalendarState.State;
+	ClockState.name: ClockState.State;
+	RequestState.name: RequestState.State;
 }
 
 export interface FirestoreState {

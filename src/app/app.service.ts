@@ -23,7 +23,6 @@ export class AppService {
 				return this.messaging.getToken()
 			})
 			.then(token => {
-				console.log(token)
 				this.saveToken(token)
 			})
 			.catch(err => {
@@ -52,15 +51,5 @@ export class AppService {
 
 	saveToken(token) {
 		this.store$.dispatch( new AdminAction.changeToken({ token: token }) )
-		/*
-		const token_ref = this.firestore.collection('admin').doc('token')
-		token_ref.update({ value: token })
-			.then(() => {
-				console.log('Success update')
-			})
-			.catch(err => {
-				console.log('Error update')
-			})
-		*/
 	}
 }

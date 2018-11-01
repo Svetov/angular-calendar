@@ -28,6 +28,24 @@ export function AdminReducer(state: State = initState, action: AdminTypes) {
 				status: action.payload.status
 			}	
 
+		case AdminActionTypes.LOG_OUT_START:
+			return {
+				...state,
+				status: action.payload.status
+			}
+
+		case AdminActionTypes.LOG_OUT_SUCCESS:
+			return {
+				...state,
+				status: action.payload.status
+			}
+
+		case AdminActionTypes.LOG_OUT_FAIL:
+			return {
+				...state,
+				status: action.payload.status
+			}
+
 		default:
 			return state
 	}

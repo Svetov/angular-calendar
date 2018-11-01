@@ -1,0 +1,24 @@
+<form [formGroup]='filter_form' (ngSubmit)='onSearch()'>
+	<div>
+		<label>Дата начала</label>
+		<input type='text' formControlName='date_start'>
+	</div>
+	<div>
+		<label>Дата конца</label>
+		<input type='text' formControlName='date_end'>
+	</div>
+	<div>
+		<label>Телефон</label>
+		<input type='text' formControlName='telephone'>
+	</div>
+	<div>
+		<label>Имя клиента</label>
+		<input type='text' formControlName='client_name'>
+	</div>
+	<div>
+		<label>Услуга</label>
+		<input type='text' formControlName='service_type'>
+	</div>
+	<button>Очистить</button>
+	<button>Поиск</button>
+</form>

@@ -5,7 +5,10 @@ export enum AdminActionTypes {
 	CHANGE_LOGIN_PASSWORD = 'CHANGE_LOGIN_PASSWORD',
 	CHANGE_LOGIN_PASSWORD_SUCCESS = 'CHANGE_LOGIN_PASSWORD_SUCCESS',
 	CHANGE_LOGIN_PASSWORD_FAIL = 'CHANGE_LOGIN_PASSWORD_FAIL',
-	CHANGE_TOKEN = 'CHANGE_TOKEN'
+	CHANGE_TOKEN = 'CHANGE_TOKEN',
+	LOG_OUT_START = 'LOG_OUT_START',
+	LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS',
+	LOG_OUT_FAIL = 'LOG_OUT_FAIL'
 }
 
 export class loginFirebaseSuccess implements Action {
@@ -37,4 +40,31 @@ export class changeToken implements Action {
 	}) {}
 }
 
-export type AdminTypes = loginFirebase | changeToken | loginFirebaseSuccess | loginFirebaseFail
+export class logOutStart implements Action {
+	readonly type = AdminActionTypes.LOG_OUT_START
+	constructor(public payload: {
+		status: string
+	}) {}
+}
+
+export class logOutSuccess implements Action {
+	readonly type = AdminActionTypes.LOG_OUT_SUCCESS
+	constructor(public payload: {
+		status: string
+	}) {}
+}
+
+export class logOutFail implements Action {
+	readonly type = AdminActionTypes.LOG_OUT_FAIL
+	constructor(public payload: {
+		status: string
+	}}) {}
+}
+
+export type AdminTypes = loginFirebase | 
+						 changeToken | 
+						 loginFirebaseSuccess | 
+						 loginFirebaseFail | 
+						 logOutStart | 
+						 logOutSuccess |
+						 logOutFail

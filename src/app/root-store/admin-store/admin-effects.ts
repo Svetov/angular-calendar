@@ -8,9 +8,16 @@ import { Store } from '@ngrx/store'
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import * as AppParametrs from '../../app.parametrs'
 import { State } from './admin-state'
-import { AdminActionTypes, AdminTypes, loginFirebaseSuccess, loginFirebaseFail } from './admin-action'
+import { AdminActionTypes, 
+		 AdminTypes, 
+		 loginFirebaseSuccess, 
+		 loginFirebaseFail,
+		 logOutSuccess,
+		 logOutFail } from './admin-action'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { loginStatus } from '../../app.parametrs'
+import { Router } from '@angular/router'
+import { PrivatePaths } from '../../private-side/private-side.path'
 
 @Injectable()
 export class AdminEffect {
@@ -21,7 +28,8 @@ export class AdminEffect {
 	constructor(private actions$: Actions, 
 				private firestore: AngularFirestore,
 				private http: HttpClient,
-				private ng_auth: AngularFireAuth) 
+				private ng_auth: AngularFireAuth,
+				private router: Router) 
 	{
 		this.request_collection = this.firestore.collection<State>('requests')
 	}
@@ -46,12 +54,46 @@ export class AdminEffect {
 	@Effect() login_firebase = this.actions$.pipe(
 		ofType(AdminActionTypes.CHANGE_LOGIN_PASSWORD),
 		map((action: AdminTypes) => action.payload),
-		tap(payload => console.log(payload)),
-		switchMap(payload =>
+		switchMap((payload: {email: string, password: string}) =>
 			from(this.ng_auth.auth.signInWithEmailAndPassword(payload.email, payload.password)
 				.then( res => new loginFirebaseSuccess({status: loginStatus.success}) )
 				.catch( err => new loginFirebaseFail({status: loginStatus.fail}) )
 			)
 		)
 	)
+
+	@Effect({ dispatch: false }) login_firebase_success = this.actions$.pipe(
+		ofType(AdminActionTypes.CHANGE_LOGIN_PASSWORD_SUCCESS),
+		map(action => this.router.navigate([PrivatePaths.successPath.path]))
+	)
+
+	// Ассинхронный action начала logout админа
+	@Effect() logout_start = this.actions$.pipe(
+		ofType(AdminActionTypes.LOG_OUT_START),
+		map((action: AdminTypes) => action.payload),
+		switchMap((payload: {status: string}) =>
+			from(this.ng_auth.auth.signOut()
+				.then( res => new logOutSuccess({status: loginStatus.none}) )
+				.catch( err => new logOutFail({status: loginStatus.success}) )
+			)
+		)
+	)
+
+	// Переход на страницу login при успешном logout
+	@Effect({ dispatch: false }) logout_success = this.actions$.pipe(
+		ofType(AdminActionTypes.LOG_OUT_SUCCESS),
+		map(action => this.router.navigate([PrivatePaths.loginPath.path]))
+	)
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,12 +7,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { RootReducer } from './root-reducer';
 import { RootEffects } from './root-effects'
 import { StoreRouterConnectingModule } from '@ngrx/router-store'
+import { metaReducers } from './root-state-sync' 
+
 
 @NgModule({
   imports: [
     CommonModule,
     EffectsModule.forRoot( RootEffects ),
-    StoreModule.forRoot( RootReducer ),
+    StoreModule.forRoot( RootReducer, { metaReducers } ),
     StoreRouterConnectingModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],

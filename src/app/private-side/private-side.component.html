@@ -9,3 +9,7 @@
 	</div>
 	<button> Войти </button>
 </form>
+
+<h3 *ngIf='status$ | async' [ngClass]="'error_text'">
+	Введен неверный логин/пароль
+</h3>

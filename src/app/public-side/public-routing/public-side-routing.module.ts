@@ -14,7 +14,7 @@ import { PublicGuardService } from './public-guard.service'
 
 const publicRoutes = [
 	{
-		path: PublicPaths.nullPath.path,
+		path: PublicPaths.nullPath.name,
 		redirectTo: PublicPaths.calendarPath.path, 
 		pathMatch: 'full' 
 	},
