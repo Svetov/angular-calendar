@@ -46,6 +46,22 @@ export function AdminReducer(state: State = initState, action: AdminTypes) {
 				status: action.payload.status
 			}
 
+		case AdminActionTypes.GET_REQUESTS_START:
+			return {
+				...state
+			}
+
+		case AdminActionTypes.GET_REQUESTS_FAIL:
+			return {
+				...state
+			}
+
+		case AdminActionTypes.GET_REQUESTS_SUCCESS:
+			return {
+				...state,
+				requests: action.payload.requests
+			}
+
 		default:
 			return state
 	}

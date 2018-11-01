@@ -11,7 +11,9 @@ import { loginStatus } from '../../../app.parametrs'
 })
 export class AdminComponent implements OnInit {
 
-	constructor(private store$: Store<RootState.State>) { }
+	constructor(private store$: Store<RootState.State>) { 
+		this.store$.dispatch( new AdminAction.getRequestsStart() )
+	}
 
 	ngOnInit() { }
 

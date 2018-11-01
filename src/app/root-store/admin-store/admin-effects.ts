@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Effect, Actions, ofType } from '@ngrx/effects'
 import { Action, select } from '@ngrx/store'
 import { Observable, from } from 'rxjs'
-import { map, mapTo, mergeMap, switchMap, catchError, tap, withLatestFrom, take } from 'rxjs/operators'
+import { map, mapTo, mergeMap, switchMap, of, catchError, tap, withLatestFrom, take } from 'rxjs/operators'
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore'
 import { Store } from '@ngrx/store'
 import { HttpHeaders, HttpClient } from '@angular/common/http'
@@ -13,11 +13,15 @@ import { AdminActionTypes,
 		 loginFirebaseSuccess, 
 		 loginFirebaseFail,
 		 logOutSuccess,
-		 logOutFail } from './admin-action'
+		 logOutFail,
+		 getRequestsStart,
+		 getRequestsFail,
+		 getRequestsSuccess } from './admin-action'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { loginStatus } from '../../app.parametrs'
 import { Router } from '@angular/router'
 import { PrivatePaths } from '../../private-side/private-side.path'
+import { AngularFirestore } from '@angular/fire/firestore'
 
 @Injectable()
 export class AdminEffect {
@@ -84,6 +88,13 @@ export class AdminEffect {
 		ofType(AdminActionTypes.LOG_OUT_SUCCESS),
 		map(action => this.router.navigate([PrivatePaths.loginPath.path]))
 	)
+
+	// Ассинхронный action получечния пагинированных requests
+//	@Effect() get_requests = this.actions$.pipe(
+//		ofType(AdminActionTypes.GET_REQUESTS_START),
+//		tap(x => console.log(1, this.firestore.collection('requests').doc)),
+//		map(ref => new  getRequestsSuccess({ requests: ref }) )
+//	)
 }
 
 

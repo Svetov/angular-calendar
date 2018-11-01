@@ -1,4 +1,4 @@
-import { State } from './admin-state'
+import { State, RequestState } from './admin-state'
 import { Action } from '@ngrx/store'
 
 export enum AdminActionTypes {
@@ -8,7 +8,27 @@ export enum AdminActionTypes {
 	CHANGE_TOKEN = 'CHANGE_TOKEN',
 	LOG_OUT_START = 'LOG_OUT_START',
 	LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS',
-	LOG_OUT_FAIL = 'LOG_OUT_FAIL'
+	LOG_OUT_FAIL = 'LOG_OUT_FAIL',
+	GET_REQUESTS_START = 'GET_REQUESTS_START',
+	GET_REQUESTS_SUCCESS = 'GET_REQUESTS_SUCCESS',
+	GET_REQUESTS_FAIL = 'GET_REQUESTS_FAIL'
+}
+
+export class getRequestsFail implements Action {
+	readonly type = AdminActionTypes.GET_REQUESTS_FAIL
+	constructor() {}
+}
+
+export class getRequestsSuccess implements Action {
+	readonly type = AdminActionTypes.GET_REQUESTS_SUCCESS
+	constructor(public payload: {
+		requests: Array<RequestState>
+	}) {}
+}
+
+export class getRequestsStart implements Action {
+	readonly type = AdminActionTypes.GET_REQUESTS_START
+	constructor() {}
 }
 
 export class loginFirebaseSuccess implements Action {
@@ -67,4 +87,22 @@ export type AdminTypes = loginFirebase |
 						 loginFirebaseFail | 
 						 logOutStart | 
 						 logOutSuccess |
-						 logOutFail
+						 logOutFail |
+						 getRequestsFail |
+						 getRequestsSuccess |
+						 getRequestsStart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
