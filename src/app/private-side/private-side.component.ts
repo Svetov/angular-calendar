@@ -5,7 +5,7 @@ import { RootState, AdminAction, RootSelectors } from '../root-store'
 import { PrivateService } from './private.service'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { loginStatus } from '../app.parametrs'
+import { LOGIN_STATUS } from '../app.parametrs'
 
 
 @Component({
@@ -25,7 +25,7 @@ export class PrivateSideComponent implements OnInit {
   {
     this.status$ = this.store$.pipe(
       select(RootSelectors.selectAdminStatus),
-      map(status => status === loginStatus.fail)
+      map(status => status === LOGIN_STATUS.FAIL)
     )
   }
 

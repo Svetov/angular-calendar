@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase'
 import { AngularFirestore } from '@angular/fire/firestore'
-import { FCMtoken } from './app.parametrs'
+import { FCM_TOKEN } from './app.parametrs'
 import { RootState, AdminAction } from './root-store'
 import { Store } from '@ngrx/store'
 
@@ -13,7 +13,7 @@ export class AppService {
 				private store$: Store<RootState.State>) {}
 
 	initPermission() {
-		this.messaging.usePublicVapidKey(FCMtoken)
+		this.messaging.usePublicVapidKey(FCM_TOKEN)
 	}
 
 	getPermission() {

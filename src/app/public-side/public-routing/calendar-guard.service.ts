@@ -45,7 +45,6 @@ export class CalendarGuardService implements CanDeactivate<CalendarComponent> {
   			router_count: 1
   		}
   	}
-  	//this.router.navigate([PublicPaths.requestPath.path], extra)
   	return false
   }
 }

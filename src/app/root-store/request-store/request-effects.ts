@@ -9,7 +9,8 @@ import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from 
 import { Store } from '@ngrx/store'
 import { selectClocks, selectDay } from '../root-selectors'
 import { HttpHeaders, HttpClient } from '@angular/common/http'
-import * as AppParametrs from '../../app.parametrs'
+import { SLACK_WEBHOOK_URL,
+		 FCM_URL} from '../../app.parametrs'
 import * as firebase from 'firebase'
 
 
@@ -55,7 +56,7 @@ export class RequestEffect {
 				messaging.getToken()
 					.then(res => {
 						this.http.post(
-							AppParametrs.FCMurl,
+							FCM_URL,
 							this.create_browser_message(res),
 							postHeader
 						).subscribe( x => console.log('push_full_state_to_browser', x) )
@@ -94,7 +95,7 @@ export class RequestEffect {
 			responseType: 'text' as 'text'
 		}
 		this.http.post(
-			AppParametrs.slackWebhookURL,
+			SLACK_WEBHOOK_URL,
 			{ text: this.create_slack_message(request) },
 			postHeader
 		).subscribe( x => console.log('create_post_request_slack', x) )

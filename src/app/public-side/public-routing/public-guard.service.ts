@@ -16,7 +16,7 @@ import { CalendarComponent } from '../calendar_element/calendar/calendar.compone
 @Injectable({
   providedIn: 'root'
 })
-export class PublicGuardService implements CanDeactivate<CalendarComponent> {//, CanActivate {
+export class PublicGuardService implements CanDeactivate<CalendarComponent> {
   url: string
 
   constructor(private store$: Store<RootState.State>) {

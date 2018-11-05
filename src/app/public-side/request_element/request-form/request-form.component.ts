@@ -51,32 +51,11 @@ export class RequestFormComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit() { }
 
 	onGetCode() {
-		this.requestService.get_code({...this.request_form.value}, this.recaptchaVerifier)
 		this.code_form_flag = true
 	}
 
 	onSendCode() {
 		this.requestService.send_code({...this.request_form.value}, this.code_form.value)
 		this.code_form_flag = false
-		/*
-		const first_name = form_value.first_name
-		const text_string = `Клиент ${first_name} приехал на разборки`
-
-		const l = JSON.stringify({"text": text_string})
-		const r = `payload=${l}`
-		const postHeader = {
-			headers: new HttpHeaders({
-				'Content-Type':  'application/x-www-form-urlencoded'
-			})
-		}
-		this.http.post(
-			"https://hooks.slack.com/services/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",
-			r,
-			postHeader
-		).subscribe(
-			x => console.log(1, x),
-			x => console.log(2, x)
-		)
-		*/
 	}
 }

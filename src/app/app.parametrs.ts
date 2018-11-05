@@ -1,18 +1,18 @@
-export const slackWebhookURL = "https://hooks.slack.com/services/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"
+export const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
 
-export const requestStatus = {
-	stage_0: 'Не обработан',
-	stage_4: 'Откланено'
+export const REQUEST_STATUS = {
+	NOT_PROCESSED: 'Не обработан',
+	DISMISS: 'Откланено'
 }
 
-export const FCMtoken = 'BEreVi-TnhyhQRGUTsONjMo_z7rcpcAcUxEUcX88U_bXxNUnTVllQoCGbXuazbB0ONenwkJvuhPsC1xkgwSpUc8'
+export const FCM_TOKEN = 'BEreVi-TnhyhQRGUTsONjMo_z7rcpcAcUxEUcX88U_bXxNUnTVllQoCGbXuazbB0ONenwkJvuhPsC1xkgwSpUc8'
 
-export const FCMurl = 'https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send'
+export const FCM_URL = 'https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send'
 
-export const loginStatus = {
-	none: 'none',
-	success: 'success',
-	fail: 'fail'
+export const LOGIN_STATUS = {
+	NONE: 'none',
+	SUCCESS: 'success',
+	FAIL: 'fail'
 }
 
 export const PAGE_SIZE = 9

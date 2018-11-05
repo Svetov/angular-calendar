@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { RootState, RootSelectors, RequestState } from '../../../root-store';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
-import { requestStatus } from '../../../app.parametrs'
+import { REQUEST_STATUS } from '../../../app.parametrs'
 import { map, tap, filter, reduce } from 'rxjs/operators'
 import { Observable } from 'rxjs'
 
@@ -13,7 +13,7 @@ export class CalendarServiceService {
     private years: Array<string> = ['2018', '2019', '2020'];
     private days: Array<string> = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 	private week_row_view: number = 6;
-	private requestCollection: AngularFirestoreCollection<RootState.FirestoreState>
+	private requestCollection: AngularFirestoreCollection<RootState.InFirestoreRequestState>
 	private picked_dates: Observable<Array<string>>
 
 	constructor(private db: AngularFirestore) {}

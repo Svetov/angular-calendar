@@ -1,4 +1,4 @@
-import { PrivateSideModule } from './private-side.module';
+import { PrivateSideModule } from './private-side.module'
 
 describe('PrivateSideModule', () => {
   let privateSideModule: PrivateSideModule;

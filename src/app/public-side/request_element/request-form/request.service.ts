@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store'
 import { RootState, RequestActions } from '../../../root-store'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { requestStatus } from '../../../app.parametrs'
+import { REQUEST_STATUS } from '../../../app.parametrs'
 
 @Injectable()
 export class RequestService {
@@ -16,27 +16,11 @@ export class RequestService {
 				private ngAuth: AngularFireAuth, 
 				private http: HttpClient) { }
 
-	get_code(form_value, recaptchaVerifier) {
-		//if (this.reg_telephone.test(form_value.telephone)) {
-		//	this.ngAuth.auth.signInWithPhoneNumber(form_value.telephone, recaptchaVerifier)
-		//this.ngAuth.auth.signInWithPhoneNumber('+7 989-702-6426', recaptchaVerifier)
-		//	.then(confirmationResult => {
-		//		this.confirmationResult = confirmationResult
-		//	})
-		//	.catch(x => console.log('signInWithPhoneNumber', x))
-		//}
-	}
-
 	send_code(form_value, code_form) {
 		form_value.adult_amount = parseInt(form_value.adult_amount) || 0
 		form_value.children_amount = parseInt(form_value.children_amount) || 0
-		form_value['request_status'] = requestStatus.stage_0
+		form_value['request_status'] = REQUEST_STATUS.NOT_PROCESSED
 
-		//this.confirmationResult.confirm(code_form)
-		//	.then(result => {
-		//		this.store.dispatch( new RequestActions.pushRequest(form_value) )
-		//	})
-		//	.catch(x => console.log('confirmationResult', x))
 		this.store.dispatch( new RequestActions.pushRequest(form_value) )
 	}
 }

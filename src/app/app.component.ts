@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import * as firebase from 'firebase'
-import { FCMtoken } from './app.parametrs'
+import { FCM_TOKEN } from './app.parametrs'
 import { AppService } from './app.service'
 import { RootState, AdminAction } from './root-store'
 import { Store } from '@ngrx/store'

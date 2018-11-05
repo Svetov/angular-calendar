@@ -6,7 +6,7 @@ import { Store, select } from '@ngrx/store'
 import { RootState, RootSelectors } from '../../root-store'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { loginStatus } from '../../app.parametrs'
+import { LOGIN_STATUS } from '../../app.parametrs'
 
 
 @Injectable()
@@ -19,7 +19,7 @@ export class AdminGuarsService implements CanActivate {
 	{
 		return this.store$.pipe(
 			select(RootSelectors.selectAdminStatus),
-			map(status => status === loginStatus.success)
+			map(status => status === LOGIN_STATUS.SUCCESS)
 		)
 	}
 }

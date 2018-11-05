@@ -14,7 +14,7 @@
 			</tr>
 			<tr *ngFor='let week of correct_month_dates'>
 				<th *ngFor='let date of week'>
-					<app-day [date_view]='date'></app-day>
+					<app-day [date_view]='date[0]'></app-day>
 				</th>
 			</tr>
 		</table>

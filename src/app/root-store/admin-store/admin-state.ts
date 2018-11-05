@@ -1,4 +1,4 @@
-import { loginStatus } from '../../app.parametrs'
+import { LOGIN_STATUS } from '../../app.parametrs'
 import { PaginationState } from './pagination-store'
 
 export interface RequestState {
@@ -26,7 +26,7 @@ export const initValue = {
 	email: '',
 	password: '',
 	token: '',
-	status: loginStatus.none,
+	status: LOGIN_STATUS.NONE,
 	pagination: PaginationState.initState
 }
 

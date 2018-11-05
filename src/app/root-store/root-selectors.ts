@@ -1,12 +1,20 @@
-import { createSelector, createFeatureSelector, MemoizedSelector } from '@ngrx/store';
-import { CalendarSelectors, CalendarState } from './calendar-store';
-import { ClockSelectors, ClockState } from './clock-store';
-import { FirestoreSelectors, FirestoreState } from './firestore'
-import { RequestSelectors, RequestState } from './request-store'
+import { createSelector, 
+		 createFeatureSelector, 
+		 MemoizedSelector } from '@ngrx/store';
+import { CalendarSelectors, 
+		 CalendarState } from './calendar-store';
+import { ClockSelectors, 
+		 ClockState } from './clock-store';
+import { FirestoreSelectors, 
+		 FirestoreState } from './firestore'
+import { RequestSelectors, 
+		 RequestState } from './request-store'
 import { State } from './root-state';
-import * as RootState from './root-state';
+import { InFirestoreRequestState } from './root-state';
 import { RouterReducerState } from '@ngrx/router-store'
-import { AdminState, AdminSelector } from './admin-store'
+import { AdminState,
+		 AdminSelector } from './admin-store'
+
 
 export const selectAdminState = createFeatureSelector<State, AdminState.State>('admin');
 export const selectAdminLoginPassword = createSelector(
@@ -94,7 +102,7 @@ export const selectForClocksRow = createSelector(
 	selectFirestoreDocuments,
 	(date: string, documents) => {
 		if (date && documents) {
-			return documents.filter((x: RootState.FirestoreState) => x.date === date).map((x: RootState.FirestoreState): Array<string> => x.clocks)
+			return documents.filter((x: InFirestoreRequestState) => x.date === date).map((x: InFirestoreRequestState): Array<string> => x.clocks)
 		}
 		return documents
 	}

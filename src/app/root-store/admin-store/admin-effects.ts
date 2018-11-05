@@ -21,7 +21,7 @@ import { AdminActionTypes,
 		 getRequestsFail,
 		 getRequestsSuccess } from './admin-action'
 import { AngularFireAuth } from '@angular/fire/auth'
-import { loginStatus } from '../../app.parametrs'
+import { LOGIN_STATUS } from '../../app.parametrs'
 import { Router } from '@angular/router'
 import { PrivatePaths } from '../../private-side/private-side.path'
 import { PaginationState, PaginationAction } from './pagination-store'
@@ -45,15 +45,10 @@ export class AdminEffect {
 				private router: Router,
 				private store$: Store<RootState.State>) 
 	{
-		//this.firestore.collection('requests', ref => ref.limit(Pa))
 		this.requests_collection = this.firestore.collection('requests')
 		this.request_id = this.firestore.collection('system').doc('requests_id')
 		this.requests_length = this.firestore.collection('system').doc('requests_id')
 	}
-
-	pagination_zero = ref => ref.limit(PAGE_SIZE)
-
-	pagination_next = ref => ref.limit(PAGE_SIZE)
 
 	// Получение пагинированых requests
 	@Effect() get_page = this.actions$.pipe(
@@ -95,8 +90,8 @@ export class AdminEffect {
 		map((action: AdminTypes) => action.payload),
 		switchMap((payload: {email: string, password: string}) =>
 			from(this.ng_auth.auth.signInWithEmailAndPassword(payload.email, payload.password)
-				.then( res => new loginFirebaseSuccess({status: loginStatus.success}) )
-				.catch( err => new loginFirebaseFail({status: loginStatus.fail}) )
+				.then( res => new loginFirebaseSuccess({status: LOGIN_STATUS.SUCCESS}) )
+				.catch( err => new loginFirebaseFail({status: LOGIN_STATUS.FAIL}) )
 			)
 		)
 	)
@@ -112,8 +107,8 @@ export class AdminEffect {
 		map((action: AdminTypes) => action.payload),
 		switchMap((payload: {status: string}) =>
 			from(this.ng_auth.auth.signOut()
-				.then( res => new logOutSuccess({status: loginStatus.none}) )
-				.catch( err => new logOutFail({status: loginStatus.success}) )
+				.then( res => new logOutSuccess({status: LOGIN_STATUS.NONE}) )
+				.catch( err => new logOutFail({status: LOGIN_STATUS.SUCCESS}) )
 			)
 		)
 	)
@@ -138,8 +133,4 @@ export class AdminEffect {
 		ofType(PaginationAction.PaginationActionType.CHANGE_PAGE),
 		map(() => new PaginationAction.GetPageStart())
 	)
-
-	roll_page() {
-
-	}
 }

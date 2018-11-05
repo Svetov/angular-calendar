@@ -21,7 +21,7 @@ export interface StateEffects {
 	[RequestState.name]: RequestState.State
 }
 
-export interface FirestoreState {
+export interface InFirestoreRequestState {
 	first_name: string,
 	second_name: string,
 	telephone: string,
