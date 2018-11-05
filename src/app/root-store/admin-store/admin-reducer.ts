@@ -1,8 +1,52 @@
 import { State, initState } from './admin-state'
 import { AdminActionTypes, AdminTypes } from './admin-action'
+import { PaginationAction } from './pagination-store'
 
-export function AdminReducer(state: State = initState, action: AdminTypes) {
+export function AdminReducer(state: State = initState, action: AdminTypes | PaginationAction.PaginationAction) {
 	switch (action.type) {
+
+		case PaginationAction.PaginationActionType.GET_REQUESTS_LENGTH:
+			return {
+				...state
+			}
+
+		case PaginationAction.PaginationActionType.GET_PAGE_START:
+			return {
+				...state
+			}
+
+		case PaginationAction.PaginationActionType.GET_PAGE_FAIL:
+			return {
+				...state
+			}
+
+		case PaginationAction.PaginationActionType.GET_PAGE_SUCCESS:
+			return {
+				...state,
+				pagination: {
+					...state.pagination,
+					requests: action.payload.requests
+				}
+			}
+
+		case PaginationAction.PaginationActionType.CHANGE_REQUESTS_LENGTH:
+			return {
+				...state,
+				pagination: {
+					...state.pagination,
+					requests_length: action.payload.requests_length
+				}
+			}
+
+		case PaginationAction.PaginationActionType.CHANGE_PAGE:
+			return {
+				...state,
+				pagination: {
+					...state.pagination,
+					page: action.payload.page
+				}
+			}
+
 		case AdminActionTypes.CHANGE_LOGIN_PASSWORD:
 			return {
 				...state,

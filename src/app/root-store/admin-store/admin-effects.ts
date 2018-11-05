@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core'
 import { Effect, Actions, ofType } from '@ngrx/effects'
 import { Action, select } from '@ngrx/store'
 import { Observable, from } from 'rxjs'
-import { map, mapTo, mergeMap, switchMap, of, catchError, tap, withLatestFrom, take } from 'rxjs/operators'
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore'
+import { map, mapTo, mergeMap, switchMap, catchError, tap, withLatestFrom, take } from 'rxjs/operators'
+import { AngularFirestore, 
+		 AngularFirestoreCollection,
+		 AngularFirestoreDocument,
+		 DocumentReference } from '@angular/fire/firestore'
 import { Store } from '@ngrx/store'
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import * as AppParametrs from '../../app.parametrs'
@@ -21,22 +24,54 @@ import { AngularFireAuth } from '@angular/fire/auth'
 import { loginStatus } from '../../app.parametrs'
 import { Router } from '@angular/router'
 import { PrivatePaths } from '../../private-side/private-side.path'
-import { AngularFirestore } from '@angular/fire/firestore'
+import { PaginationState, PaginationAction } from './pagination-store'
+import { PAGE_SIZE } from '../../app.parametrs'
+import { RootState, RootSelectors } from '../../root-store'
+
 
 @Injectable()
 export class AdminEffect {
-	private request_collection: AngularFirestoreCollection<State>
+	private request_id: AngularFirestoreDocument<any>
+	private requests_length: AngularFirestoreDocument<any>
+	private requests_collection: AngularFirestoreCollection<PaginationState.FirestoreState>
 	private date_value: string
 	private clocks_mas: Array<string>
+	private first: string
 
 	constructor(private actions$: Actions, 
 				private firestore: AngularFirestore,
 				private http: HttpClient,
 				private ng_auth: AngularFireAuth,
-				private router: Router) 
+				private router: Router,
+				private store$: Store<RootState.State>) 
 	{
-		this.request_collection = this.firestore.collection<State>('requests')
+		//this.firestore.collection('requests', ref => ref.limit(Pa))
+		this.requests_collection = this.firestore.collection('requests')
+		this.request_id = this.firestore.collection('system').doc('requests_id')
+		this.requests_length = this.firestore.collection('system').doc('requests_id')
 	}
+
+	pagination_zero = ref => ref.limit(PAGE_SIZE)
+
+	pagination_next = ref => ref.limit(PAGE_SIZE)
+
+	// Получение пагинированых requests
+	@Effect() get_page = this.actions$.pipe(
+		ofType(PaginationAction.PaginationActionType.GET_PAGE_START),
+		switchMap(action => this.store$.pipe(
+				select(RootSelectors.selectPage),
+				switchMap(page => this.request_id.valueChanges().pipe(
+						map(requests_id_mas => requests_id_mas[page * PAGE_SIZE]),
+						switchMap(id => this.requests_collection.valueChanges().pipe(
+								map(res => res.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE)),
+								map(page_res => new PaginationAction.GetPageSuccess({ requests: page_res }))
+							)
+						)
+					)
+				)
+			)
+		)
+	)
 
 	@Effect({ dispatch: false }) send_token_to_firestore = this.actions$.pipe(
 		ofType(AdminActionTypes.CHANGE_TOKEN),
@@ -89,22 +124,22 @@ export class AdminEffect {
 		map(action => this.router.navigate([PrivatePaths.loginPath.path]))
 	)
 
-	// Ассинхронный action получечния пагинированных requests
-//	@Effect() get_requests = this.actions$.pipe(
-//		ofType(AdminActionTypes.GET_REQUESTS_START),
-//		tap(x => console.log(1, this.firestore.collection('requests').doc)),
-//		map(ref => new  getRequestsSuccess({ requests: ref }) )
-//	)
+	// Получение длины списка requests
+	@Effect() get_requests_length = this.actions$.pipe(
+		ofType(PaginationAction.PaginationActionType.GET_REQUESTS_LENGTH),
+		switchMap(action => from(this.requests_length.valueChanges().pipe(
+				map(res => new PaginationAction.ChangeRequestLength({ requests_length: res.value.length }))
+			))
+		)
+	)
+
+	// Цепочка action для старта получения пагинированной страницы после изменения page
+	@Effect() change_page = this.actions$.pipe(
+		ofType(PaginationAction.PaginationActionType.CHANGE_PAGE),
+		map(() => new PaginationAction.GetPageStart())
+	)
+
+	roll_page() {
+
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-

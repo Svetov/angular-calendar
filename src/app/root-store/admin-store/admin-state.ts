@@ -1,4 +1,5 @@
 import { loginStatus } from '../../app.parametrs'
+import { PaginationState } from './pagination-store'
 
 export interface RequestState {
 	first_name: string,
@@ -18,7 +19,7 @@ export interface State {
 	password: string,
 	token: string,
 	status: string,
-	requests: Array<RequestState>
+	pagination: PaginationState.State
 }
 
 export const initValue = {
@@ -26,9 +27,9 @@ export const initValue = {
 	password: '',
 	token: '',
 	status: loginStatus.none,
-	requests: []
+	pagination: PaginationState.initState
 }
 
 export const name = 'admin'
 
-export const initState: Statte = localStorage.getItem(name) != undefined ? JSON.parse(localStorage.getItem(name)) : initValue
+export const initState: State = localStorage.getItem(name) != undefined ? JSON.parse(localStorage.getItem(name)) : initValue

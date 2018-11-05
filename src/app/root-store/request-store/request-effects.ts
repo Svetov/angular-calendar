@@ -4,14 +4,14 @@ import { Action, select } from '@ngrx/store'
 import { Observable, from } from 'rxjs'
 import { map, mapTo, mergeMap, switchMap, catchError, tap, withLatestFrom } from 'rxjs/operators'
 import { RequestActionTypes, RequestActions, changeStatus } from './request-action'
-import { State } from './request-state'
+import { State, StateEffects } from './request-state'
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore'
 import { Store } from '@ngrx/store'
-import { StateEffects } from '../root-state'
 import { selectClocks, selectDay } from '../root-selectors'
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import * as AppParametrs from '../../app.parametrs'
 import * as firebase from 'firebase'
+
 
 @Injectable()
 export class RequestEffect {
@@ -39,12 +39,6 @@ export class RequestEffect {
 		ofType(RequestActionTypes.PUSH_REQUEST),
 		map((action: RequestActions) => action.payload),
 		map((request) => this.create_post_request_slack(request))
-	)
-
-	@Effect({ dispatch: false }) push_request_to_browser = this.actions$.pipe(
-		ofType(RequestActionTypes.PUSH_REQUEST),
-		map((action: RequestActions) => action.payload)
-		//map((payload: State): void => this.push_full_state_to_browser(payload))
 	)
 
 	push_full_state_to_browser(payload) {
@@ -83,13 +77,6 @@ export class RequestEffect {
 		}
 	}
 
-	/*
-	creaet_post_request_notification(messaging) {
-		messaging.getToken()
-			.then()
-			.catch()
-	}*/
-
 	send_full_state_to_firestore(payload) {
 		return from(this.request_collection.add({ ...payload, date: this.date_value, clocks: this.clocks_mas }))
 	}
@@ -103,11 +90,12 @@ export class RequestEffect {
 
 	create_post_request_slack(request) {
 		const postHeader = {
-			headers: new HttpHeaders({ 'Content-Type':  'application/x-www-form-urlencoded' })
+			headers: new HttpHeaders({ 'Content-Type':  'application/x-www-form-urlencoded' }),
+			responseType: 'text' as 'text'
 		}
 		this.http.post(
 			AppParametrs.slackWebhookURL,
-			`payload=${ JSON.stringify({text: this.create_slack_message(request)}) }`,
+			{ text: this.create_slack_message(request) },
 			postHeader
 		).subscribe( x => console.log('create_post_request_slack', x) )
 	}

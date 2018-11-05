@@ -1,3 +1,7 @@
+import { ClockState } from '../clock-store'
+import { CalendarState } from '../calendar-store'
+
+
 export interface State {
 	first_name: string,
 	second_name: string,
@@ -22,4 +26,11 @@ export const initValue = {
 
 export const name = 'request'
 
-export const initState: Statte = localStorage.getItem(name) != undefined ? JSON.parse(localStorage.getItem(name)) : initValue
+export interface StateEffects {
+	[CalendarState.name]: CalendarState.State,
+	[ClockState.name]: ClockState.State,
+	[name]: State
+}
+
+
+export const initState: State = localStorage.getItem(name) != undefined ? JSON.parse(localStorage.getItem(name)) : initValue

@@ -8,4 +8,4 @@ export const initValue: State = {
 
 export const name = 'clock'
 
-export const initState: Statte = localStorage.getItem(name) != undefined ? JSON.parse(localStorage.getItem(name)) : initValue
+export const initState: State = localStorage.getItem(name) != undefined ? JSON.parse(localStorage.getItem(name)) : initValue

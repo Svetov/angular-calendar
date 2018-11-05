@@ -25,7 +25,7 @@ export class FirestoreEffect {
 
 	@Effect() get_firestore_reguests = this.actions$.pipe(
 		ofType(FirestoreActionTypes.GET_FIRESTORE_REQUEST_START),
-		switchMap( x => from(this.request_collection.valueChanges()).pipe(
+		switchMap( res => from(this.request_collection.valueChanges()).pipe(
 			map((x) => new getFirestoreRequestSuccess({ documents: x }))
 		))
 	)

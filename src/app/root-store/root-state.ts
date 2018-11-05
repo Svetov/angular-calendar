@@ -5,19 +5,20 @@ import { FirestoreState } from './firestore'
 import { RouterReducerState } from '@ngrx/router-store'
 import { AdminState } from './admin-store'
 
+
 export interface State {
-	router: RouterReducerState;
-	CalendarState.name: CalendarState.State;
-	ClockState.name: ClockState.State;
-	RequestState.name: RequestState.State;
-	FirestoreState.name: FirestoreState.State;
-	AdminState.name: AdminState.State;
+	router: RouterReducerState,
+	[CalendarState.name]: CalendarState.State,
+	[ClockState.name]: ClockState.State,
+	[RequestState.name]: RequestState.State,
+	[FirestoreState.name]: FirestoreState.State,
+	[AdminState.name]: AdminState.State
 }
 
 export interface StateEffects {
-	CalendarState.name: CalendarState.State;
-	ClockState.name: ClockState.State;
-	RequestState.name: RequestState.State;
+	[CalendarState.name]: CalendarState.State,
+	[ClockState.name]: ClockState.State,
+	[RequestState.name]: RequestState.State
 }
 
 export interface FirestoreState {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store'
-import { RootState, AdminAction } from '../../../root-store'
+import { RootState, AdminAction, PaginationAction } from '../../../root-store'
 import { loginStatus } from '../../../app.parametrs'
 
 
@@ -12,7 +12,9 @@ import { loginStatus } from '../../../app.parametrs'
 export class AdminComponent implements OnInit {
 
 	constructor(private store$: Store<RootState.State>) { 
-		this.store$.dispatch( new AdminAction.getRequestsStart() )
+		//this.store$.dispatch( new AdminAction.getRequestsStart({ requests: 'AdminAction' }) )
+		this.store$.dispatch( new PaginationAction.GetRequestsLength() )  
+		this.store$.dispatch( new PaginationAction.ChangePage({ page: 0 }) )  
 	}
 
 	ngOnInit() { }

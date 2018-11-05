@@ -19,11 +19,27 @@ export const selectAdminStatus = createSelector(
 	AdminSelector.selectStatus
 )
 
+export const selectRequestLength = createSelector(
+	selectAdminState,
+	AdminSelector.selectRequestsLength
+)
+
+export const selectPage = createSelector(
+	selectAdminState,
+	AdminSelector.selectPage
+)
+
+export const selectPageRequests = createSelector(
+	selectAdminState,
+	AdminSelector.selectPageRequests
+)
+
 export const selectRouterState = (state: State) => state.router
 export const selectUrl = createSelector(
 	selectRouterState,
 	(state: RouterReducerState) => state.state.url
 )
+
 
 export const selectCalendar= createFeatureSelector<State, CalendarState.State>('calendar');
 export const selectDay = createSelector(

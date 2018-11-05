@@ -14,3 +14,5 @@ export const loginStatus = {
 	success: 'success',
 	fail: 'fail'
 }
+
+export const PAGE_SIZE = 9

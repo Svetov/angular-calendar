@@ -16,7 +16,9 @@ export enum AdminActionTypes {
 
 export class getRequestsFail implements Action {
 	readonly type = AdminActionTypes.GET_REQUESTS_FAIL
-	constructor() {}
+	constructor(public payload: {
+		requests: any 
+	}) {}
 }
 
 export class getRequestsSuccess implements Action {
@@ -28,7 +30,9 @@ export class getRequestsSuccess implements Action {
 
 export class getRequestsStart implements Action {
 	readonly type = AdminActionTypes.GET_REQUESTS_START
-	constructor() {}
+	constructor(public payload: {
+		requests: any
+	}) {}
 }
 
 export class loginFirebaseSuccess implements Action {
@@ -78,7 +82,7 @@ export class logOutFail implements Action {
 	readonly type = AdminActionTypes.LOG_OUT_FAIL
 	constructor(public payload: {
 		status: string
-	}}) {}
+	}) {}
 }
 
 export type AdminTypes = loginFirebase | 
