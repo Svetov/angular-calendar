@@ -96,9 +96,10 @@ export class AdminEffect {
 		)
 	)
 
-	@Effect({ dispatch: false }) login_firebase_success = this.actions$.pipe(
+	@Effect() login_firebase_success = this.actions$.pipe(
 		ofType(AdminActionTypes.CHANGE_LOGIN_PASSWORD_SUCCESS),
-		map(action => this.router.navigate([PrivatePaths.successPath.path]))
+		map(action => this.router.navigate([PrivatePaths.successPath.path])),
+		map(nav => new PaginationAction.ChangePage({ page: 0 }))
 	)
 
 	// Ассинхронный action начала logout админа

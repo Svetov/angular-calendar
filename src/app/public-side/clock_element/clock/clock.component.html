@@ -6,4 +6,5 @@
 	</tr>
 </table>
 
-<app-button-nav [herf_back]='herf_back' [herf_forward]='herf_forward'></app-button-nav>
+<h5 *ngIf='select_error'>Неверно выбранно время</h5>
+<app-button-nav [disabled_forward]='select_error' [herf_back]='herf_back' [herf_forward]='herf_forward'></app-button-nav>

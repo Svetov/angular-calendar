@@ -2,25 +2,45 @@ import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store'
 import { RootState, RootSelectors } from '../../../root-store'
 import { mapTo, map, filter, tap, switchMap, first, catchError, reduce } from 'rxjs/operators'
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
+import { CLOCKS_RANGE } from '../../../app.parametrs'
+
 
 @Injectable()
 export class ClockService {
   private picked_date: string = ''
   private picked_clocks: Observable<any>
-  private clocks_: Array<string> = [ '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00','17:00', '18:00',
-			 	 					                   '19:00', '20:00', '21:00', '22:00' ];
-  get clocks(): Array<string> { return this.clocks_ }
-  set clocks(_clocks) { this.clocks_ = _clocks }
+  private clocks_: Array<string> = CLOCKS_RANGE;
+  get clocks(): Array<string> { 
+    return this.clocks_ 
+  }
+  set clocks(_clocks) { 
+    this.clocks_ = _clocks 
+  }
 
   private click_count_: number = 0;
-  get click_count(): number { return this.click_count_ }
-  set click_count(_clock: number) { this.click_count_ = _clock }
-  increment_clock_count(): void { this.click_count++ }
+  get click_count(): number { 
+    return this.click_count_ 
+  }
+  set click_count(_clock: number) { 
+    this.click_count_ = _clock 
+  }
+  increment_clock_count(): void { 
+    this.click_count++ 
+  }
 
   private mem_clock_: string = "";
-  get mem_clock(): string { return this.mem_clock_ }
-  set mem_clock(_mem_clock: string) { this.mem_clock_ = _mem_clock }
+  get mem_clock(): string { 
+    return this.mem_clock_ 
+  }
+  set mem_clock(_mem_clock: string) { 
+    this.mem_clock_ = _mem_clock 
+  }
+
+  private select_error_: Subject<any> = new Subject()
+  get select_error() {
+    return this.select_error_
+  }
 
   constructor(private store$: Store<RootState.State>) {
     this.store$.pipe(select(RootSelectors.selectDay)).subscribe(x => this.picked_date = x)

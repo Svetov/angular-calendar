@@ -13,6 +13,8 @@ import { environment } from './../environments/environment.prod';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppService } from './app.service'
 import { AngularFireMessagingModule } from '@angular/fire/messaging'
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store'
+import { StoreModule } from '@ngrx/store'
 
 @NgModule({
   declarations: [

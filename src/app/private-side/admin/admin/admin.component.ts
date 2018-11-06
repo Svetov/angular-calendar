@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, 
+		 OnInit } from '@angular/core';
 import { Store } from '@ngrx/store'
-import { RootState, AdminAction, PaginationAction } from '../../../root-store'
+import { RootState, 
+		 AdminAction, 
+		 PaginationAction } from '../../../root-store'
 import { LOGIN_STATUS } from '../../../app.parametrs'
+import { AppService } from '../../../app.service'
 
 
 @Component({
@@ -11,9 +15,14 @@ import { LOGIN_STATUS } from '../../../app.parametrs'
 })
 export class AdminComponent implements OnInit {
 
-	constructor(private store$: Store<RootState.State>) { 
+	constructor(private store$: Store<RootState.State>,
+				private app: AppService) 
+	{
+		// Получение прав на отправку нотификаций и полчение нотификаций
+		//this.store$.dispatch(new AdminAction.changeToken({ token: '' }))
+		this.app.monitorRefresh()
+		
 		this.store$.dispatch( new PaginationAction.GetRequestsLength() )  
-		this.store$.dispatch( new PaginationAction.ChangePage({ page: 0 }) )  
 	}
 
 	ngOnInit() { }

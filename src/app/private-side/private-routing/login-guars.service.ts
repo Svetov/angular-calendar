@@ -19,7 +19,6 @@ export class LoginGuarsService implements CanActivate {
 	{
 		return this.store$.pipe(
 			select(RootSelectors.selectAdminStatus),
-			tap(x => console.log(123, x)),
 			map(status => status !== LOGIN_STATUS.SUCCESS)
 		)
 	}

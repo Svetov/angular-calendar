@@ -6,6 +6,7 @@ import { REQUEST_STATUS } from '../../../app.parametrs'
 import { map, tap, filter, reduce } from 'rxjs/operators'
 import { Observable } from 'rxjs'
 
+
 @Injectable()
 export class CalendarServiceService {
 	private months: Array<string> = [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
@@ -27,7 +28,6 @@ export class CalendarServiceService {
 		}
 
 		let res: Array<[string, number, boolean]> = result.map((x: moment.Moment): [string, number, boolean] => [x.format('DD.MM.YYYY'), x.day(), false]);
-
 		return res;
 	}
 
@@ -39,16 +39,29 @@ export class CalendarServiceService {
 		let gap_dates: Array<[string, number, boolean]> = [];
 		let result: Array<[string, number, boolean]> = [];
 
-		if (month_dates[0][1] === 0) { start_count = 6; }
-		else { start_count = month_dates[0][1] - 1; }
+		if (month_dates[0][1] === 0) { 
+			start_count = 6; 
+		}
+		else { 
+			start_count = month_dates[0][1] - 1; 
+		}
 
-		if (month_dates[month_dates.length - 1][1] === 0) { end_count = 0; }
-		else { end_count = 7 - month_dates[month_dates.length - 1][1]; }
+		if (month_dates[month_dates.length - 1][1] === 0) { 
+			end_count = 0; 
+		}
+		else { 
+			end_count = 7 - month_dates[month_dates.length - 1][1]; 
+		}
 
-		for(let i = 0; i < start_count; i++) { start_dates.push(this.createNullDate()) }
-		for(let i = 0; i < end_count; i++) { end_dates.push(this.createNullDate()) }
-		for(let i = 0; i < (7 * this.week_row_view - (start_dates.length + month_dates.length + end_dates.length)); i++) { gap_dates.push(this.createNullDate()) }
-
+		for(let i = 0; i < start_count; i++) {
+			start_dates.push(this.createNullDate()) 
+		}
+		for(let i = 0; i < end_count; i++) {
+			end_dates.push(this.createNullDate()) 
+		}
+		for(let i = 0; i < (7 * this.week_row_view - (start_dates.length + month_dates.length + end_dates.length)); i++) {
+			gap_dates.push(this.createNullDate()) 
+		}
 
 		result = start_dates.concat(month_dates.concat(end_dates).concat(gap_dates));
 		return result.map((x: [string, number, boolean]): [string, boolean] => [x[0], x[2]]);
@@ -72,7 +85,9 @@ export class CalendarServiceService {
 
 	markDates(date: string, month_dates: Array<[string, number, boolean]>): Array<[string, number, boolean]>{
 		for (let i = 0; i < month_dates.length; i++) {
-			if(month_dates[i][0] === date) { month_dates[i][2] = true; }
+			if(month_dates[i][0] === date) { 
+				month_dates[i][2] = true; 
+			}
 		}
 		return month_dates;
 	}

@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ButtonNavComponent implements OnInit {
   @Input() herf_back: string;
   @Input() herf_forward: string;
+  @Input() disabled_forward: boolean = false
 
   constructor() { }
 

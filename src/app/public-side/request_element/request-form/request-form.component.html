@@ -1,36 +1,65 @@
 <form [formGroup]='request_form' (ngSubmit)='onGetCode()'>
 	<div>
 		<label>Имя*</label>
-		<input type='text' formControlName='first_name'>
+		<input type='text' formControlName='first_name' required>
+		<div *ngIf='first_name.invalid'>
+			<div><label [ngClass]="'form_error'" *ngIf='first_name.errors.required'>Необходимо ввести имя</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='first_name.errors.minlength'>Имя меньше минимальной длины</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='first_name.errors.maxlength'>Имя больше максимальной длины</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='first_name.errors.pattern'>Имя должно быть на русском языке</label></div>
+		</div>
 	</div>
 	<div>
 		<label>Фамилияя*</label>
-		<input type='text' formControlName='second_name'>
+		<input type='text' formControlName='second_name' required>
+		<div *ngIf='second_name.invalid'>
+			<div><label [ngClass]="'form_error'" *ngIf='second_name.errors.required'>Необходимо ввести фамилию</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='second_name.errors.minlength'>Фамилия меньше минимальной длины</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='second_name.errors.maxlength'>Фамилия больше максимальной длины</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='second_name.errors.pattern'>Фамилия должна быть на русском языке</label></div>
+		</div>
 	</div>
 	<div>
 		<label id='telephone-label'>Телефон*</label>
-		<input id='telephone-input' type='text' formControlName='telephone' placeholder="+7 989-800-712">
+		<input id='telephone-input' type='tel' formControlName='telephone' placeholder="+7 989-800-712">
+		<div *ngIf='telephone.invalid'>
+			<div><label [ngClass]="'form_error'" *ngIf='telephone.errors.required'>Необходимо ввести телефон</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='telephone.errors.minlength'>Телефон меньше минимальной длины</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='telephone.errors.maxlength'>Телефон больше максимальной длины</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='telephone.errors.pattern'>Телефон содержит недопустимые символы</label></div>
+		</div>
 	</div>
 	<div>
 		<label>Услуга*</label>
 		<select formControlName='service_type'>
-			<option>2</option>
-			<option>1</option>
+			<option *ngFor='let service of service_type_option'>{{service}}</option>
 		</select>
 	</div>
 	<div>
 		<label>Количество детей*</label>
-		<input type='text' formControlName='children_amount'>
+		<input type='number' formControlName='children_amount'>
+		<div *ngIf='children_amount.invalid'>
+			<div><label [ngClass]="'form_error'" *ngIf='children_amount.errors.required'>Необходимо указать кол-во детей</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='children_amount.errors.min'>Кол-во меньше минимального значения</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='children_amount.errors.max'>Кол-во больше максимального значения</label></div>
+		</div>
 	</div>
 	<div>
 		<label>Количество взрослых*</label>	
-		<input type='text' formControlName='adult_amount'>
+		<input type='number' formControlName='adult_amount'>
+		<div *ngIf='adult_amount.invalid'>
+			<div><label [ngClass]="'form_error'" *ngIf='adult_amount.errors.required'>Необходимо указать кол-во взрослых</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='adult_amount.errors.min'>Кол-во меньше минимального значения</label></div>
+			<div><label [ngClass]="'form_error'" *ngIf='adult_amount.errors.max'>Кол-во больше максимального значения</label></div>
+		</div>
 	</div>
 	<div>
 		<label>Расположение столов</label>
-		<input type='text' formControlName='table_type'>
+		<select formControlName='table_type'>
+			<option *ngFor='let table of table_type_option'>{{table}}</option>
+		</select>
 	</div>
-	<button id='button-send-sms'> Отправить </button>
+	<button id='button-send-sms' [disabled]='!request_form.valid'> Отправить </button>
 </form>
 
 <div *ngIf='code_form_flag'>

@@ -102,7 +102,8 @@ export const selectForClocksRow = createSelector(
 	selectFirestoreDocuments,
 	(date: string, documents) => {
 		if (date && documents) {
-			return documents.filter((x: InFirestoreRequestState) => x.date === date).map((x: InFirestoreRequestState): Array<string> => x.clocks)
+			return documents.filter((x: InFirestoreRequestState) => x.date === date)
+							.map((x: InFirestoreRequestState): Array<string> => x.clocks)
 		}
 		return documents
 	}

@@ -35,7 +35,6 @@ export class CalendarComponent implements OnInit, OnChanges, DoCheck {
   	this.correct_days = this.calendarService.getDays();
   	this.correct_years = this.calendarService.getYers();
   	this.month_year_listner.subscribe(({month, year}: { month:string, year:string }) => this.updateMonth(month, year));
-    //this.store.dispatch( new FirestoreAction.getFirestoreRequestStart({ documents: [] }) )
   }
 
   updateMonth(month: string, year: string): void {
