@@ -5,4 +5,5 @@ import { AdminReducer } from './admin-reducer'
 import { AdminEffect } from './admin-effects'
 
 export * from './pagination-store'
+export * from './filter-store'
 export { AdminAction, AdminState, AdminSelector, AdminReducer, AdminEffect } 

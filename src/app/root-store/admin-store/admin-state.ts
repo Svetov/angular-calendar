@@ -1,5 +1,7 @@
 import { LOGIN_STATUS } from '../../app.parametrs'
 import { PaginationState } from './pagination-store'
+import { FilterState } from './filter-store'
+
 
 export interface RequestState {
 	first_name: string,
@@ -19,7 +21,8 @@ export interface State {
 	password: string,
 	token: string,
 	status: string,
-	pagination: PaginationState.State
+	pagination: PaginationState.State,
+	filter: FilterState.State
 }
 
 export const initValue = {
@@ -27,7 +30,8 @@ export const initValue = {
 	password: '',
 	token: '',
 	status: LOGIN_STATUS.NONE,
-	pagination: PaginationState.initState
+	pagination: PaginationState.initState,
+	filter: FilterState.initState
 }
 
 export const name = 'admin'

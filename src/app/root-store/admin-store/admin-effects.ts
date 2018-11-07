@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core'
-import { Effect, Actions, ofType } from '@ngrx/effects'
-import { Action, select } from '@ngrx/store'
-import { Observable, from } from 'rxjs'
-import { map, mapTo, mergeMap, switchMap, catchError, tap, withLatestFrom, take } from 'rxjs/operators'
+import { Effect, 
+		 Actions, 
+		 ofType } from '@ngrx/effects'
+import { Action, 
+		 select } from '@ngrx/store'
+import { Observable, 
+		 from } from 'rxjs'
+import { map, 
+		 mapTo, 
+		 mergeMap, 
+		 switchMap, 
+		 catchError, 
+		 tap, 
+		 withLatestFrom, 
+		 take } from 'rxjs/operators'
 import { AngularFirestore, 
 		 AngularFirestoreCollection,
 		 AngularFirestoreDocument,
 		 DocumentReference } from '@angular/fire/firestore'
 import { Store } from '@ngrx/store'
-import { HttpHeaders, HttpClient } from '@angular/common/http'
+import { HttpHeaders, 
+		 HttpClient } from '@angular/common/http'
 import * as AppParametrs from '../../app.parametrs'
 import { State } from './admin-state'
 import { AdminActionTypes, 
@@ -24,9 +36,12 @@ import { AngularFireAuth } from '@angular/fire/auth'
 import { LOGIN_STATUS } from '../../app.parametrs'
 import { Router } from '@angular/router'
 import { PrivatePaths } from '../../private-side/private-side.path'
-import { PaginationState, PaginationAction } from './pagination-store'
+import { PaginationState, 
+		 PaginationAction } from './pagination-store'
 import { PAGE_SIZE } from '../../app.parametrs'
-import { RootState, RootSelectors } from '../../root-store'
+import { RootState, 
+		 RootSelectors } from '../../root-store'
+import { FilterAction } from './filter-store'
 
 
 @Injectable()
@@ -34,6 +49,7 @@ export class AdminEffect {
 	private request_id: AngularFirestoreDocument<any>
 	private requests_length: AngularFirestoreDocument<any>
 	private requests_collection: AngularFirestoreCollection<PaginationState.FirestoreState>
+	private filter: AngularFirestoreDocument<any>
 	private date_value: string
 	private clocks_mas: Array<string>
 	private first: string
@@ -48,7 +64,17 @@ export class AdminEffect {
 		this.requests_collection = this.firestore.collection('requests')
 		this.request_id = this.firestore.collection('system').doc('requests_id')
 		this.requests_length = this.firestore.collection('system').doc('requests_id')
+		this.filter = this.firestore.collection('system').doc('filter')
 	}
+
+	// Эффект отправки значений фильтра на в firestore
+	@Effect() push_filter_value = this.actions$.pipe(
+		ofType(FilterAction.FilterActionType.CHANGE_VALUE),
+		switchMap((action: FilterAction.FilterAction) => from(this.filter.update( action.payload )).pipe(
+				map(res => new FilterAction.changeFirestoreValueStart({ filtered: [] }))
+			)
+		)
+	)
 
 	// Получение пагинированых requests
 	@Effect() get_page = this.actions$.pipe(

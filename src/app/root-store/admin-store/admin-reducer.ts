@@ -1,9 +1,42 @@
 import { State, initState } from './admin-state'
 import { AdminActionTypes, AdminTypes } from './admin-action'
 import { PaginationAction } from './pagination-store'
+import { FilterAction } from './filter-store'
 
-export function AdminReducer(state: State = initState, action: AdminTypes | PaginationAction.PaginationAction) {
+
+export function AdminReducer(state: State = initState, action: AdminTypes | 
+															   PaginationAction.PaginationAction |
+															   FilterAction.FilterAction) 
+{
 	switch (action.type) {
+
+		case FilterAction.FilterActionType.CHANGE_FIRESTORE_VALUE_START:
+			return {
+				...state
+			}
+
+		case FilterAction.FilterActionType.CHANGE_FIRESTORE_VALUE_FAIL:
+			return {
+				...state
+			}
+
+		case FilterAction.FilterActionType.CHANGE_FIRESTORE_VALUE_SUCCESS:
+			return {
+				...state,
+				filter: {
+					...state.filter,
+					filtered: action.payload.filtered
+				}
+			}
+
+		case FilterAction.FilterActionType.CHANGE_VALUE:
+			return {
+				...state,
+				filter: {
+					...state.filter,
+					value: action.payload.value
+				}
+			}
 
 		case PaginationAction.PaginationActionType.GET_REQUESTS_LENGTH:
 			return {

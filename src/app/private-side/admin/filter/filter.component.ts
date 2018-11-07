@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
+import { Store } from '@ngrx/store'
+import { RootState, FilterAction } from '../../../root-store'
+
 
 @Component({
 	selector: 'app-filter',
@@ -15,9 +18,17 @@ export class FilterComponent implements OnInit {
 		service_type: new FormControl('')
 	})
 
-	constructor() { }
+	constructor(private store$: Store<RootState.State>) { }
 
 	ngOnInit() { }
 
-	onSearch() { }
+	onSearch() {
+		let filter_value = Object.entries(this.filter_form.value).filter(item => item[1] !== '').map(item => {
+			return { 
+				parametr: item[0],
+				value: item[1] 
+			} 
+		})
+		this.store$.dispatch(new FilterAction.changeValue({ value: filter_value }))
+	}
 }
